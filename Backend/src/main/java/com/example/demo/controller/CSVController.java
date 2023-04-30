@@ -62,7 +62,7 @@ public class CSVController {
 	 * @return the all tutorials
 	 */
 	@GetMapping("/users")
-	public ResponseEntity<List<User>> getAllTutorials() {
+	public ResponseEntity<List<User>> getAllUsers() {
 		try {
 			List<User> users = fileService.getAllUsers();
 
