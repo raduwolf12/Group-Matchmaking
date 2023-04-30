@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.example.demo.model.dto.UserRequestDto;
 import com.example.demo.model.dto.UserResponseDto;
+import com.example.demo.validation.exception.UserNotFoundException;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Interface UserService.
  */
@@ -18,6 +20,20 @@ public interface UserService {
 	 */
 	public UserResponseDto createUser(UserRequestDto userRequestDTO);
 
+	/**
+	 * Gets the all users.
+	 *
+	 * @return the all users
+	 */
 	public List<UserResponseDto> getAllUsers();
+
+	/**
+	 * Gets the user by id.
+	 *
+	 * @param id the id
+	 * @return the user by id
+	 * @throws UserNotFoundException 
+	 */
+	public UserResponseDto getUserById(Long id) throws UserNotFoundException;
 
 }
