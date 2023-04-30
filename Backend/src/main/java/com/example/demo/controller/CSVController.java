@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.dto.UserResponseDto;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.pojo.CSVHelper;
 import com.example.demo.model.pojo.ResponseMessage;
@@ -62,9 +63,9 @@ public class CSVController {
 	 * @return the all tutorials
 	 */
 	@GetMapping("/users")
-	public ResponseEntity<List<User>> getAllUsers() {
+	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
 		try {
-			List<User> users = fileService.getAllUsers();
+			List<UserResponseDto> users = fileService.getAllUsers();
 
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);

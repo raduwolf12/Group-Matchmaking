@@ -1,12 +1,15 @@
 package com.example.demo.service.impl;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.dto.UserResponseDto;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.pojo.CSVHelper;
 import com.example.demo.repository.UserRepository;
@@ -41,7 +44,15 @@ public class CSVServiceImpl implements CSVService {
 	 *
 	 * @return the all users
 	 */
-	public List<User> getAllUsers() {
-		return repository.findAll();
+	public List<UserResponseDto> getAllUsers() {
+		List<User> users = repository.findAll();
+		List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
+		for (User user : users) {
+			UserResponseDto userResponseDto = new UserResponseDto();
+			BeanUtils.copyProperties(user, userResponseDto);
+			userResponseDtos.add(userResponseDto);
+		}
+		return userResponseDtos;
+//		return repository.findAll();
 	}
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.model.dto.UserResponseDto;
 import com.example.demo.model.entity.User;
 
 /**
@@ -23,5 +24,5 @@ public interface CSVService {
 	 *
 	 * @return the all users
 	 */
-	public List<User> getAllUsers();
+	public List<UserResponseDto> getAllUsers();
 }
