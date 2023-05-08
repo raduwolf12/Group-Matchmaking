@@ -44,4 +44,17 @@ public interface UserService {
 	 */
 	public UserResponseDto getUserById(Long id) throws UserNotFoundException;
 
+	/**
+	 * Delete all users.
+	 */
+	public void deleteAllUsers();
+
+	/**
+	 * Delete user by id.
+	 *
+	 * @param id the id
+	 * @throws UserNotFoundException the user not found exception
+	 */
+	public void deleteUserById(Long id) throws UserNotFoundException;
+
 }

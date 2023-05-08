@@ -12,7 +12,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class Project.
  */

@@ -9,9 +9,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class ProjectPreference.
+ * 
+ * @author Radu
  */
 @Entity
 @Table(name = "project_preferences")
