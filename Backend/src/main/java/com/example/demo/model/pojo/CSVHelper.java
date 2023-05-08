@@ -63,7 +63,7 @@ public class CSVHelper {
 				user.setCanvasUserId(Long.parseLong(csvRecord.get("canvas_user_id")));
 				user.setUserId(Long.parseLong(csvRecord.get("user_id")));
 				user.setGroupId(null);
-				user.setPreferenceId(null);
+//				user.setPreferenceId(null);
 				user.setRole(Role.STUDENT);
 
 				users.add(user);

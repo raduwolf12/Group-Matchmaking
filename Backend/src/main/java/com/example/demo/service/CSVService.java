@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.dto.UserResponseDto;
-import com.example.demo.model.entity.User;
 
 /**
  * The Interface CSVService.

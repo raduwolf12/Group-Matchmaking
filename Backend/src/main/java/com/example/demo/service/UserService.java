@@ -6,7 +6,6 @@ import com.example.demo.model.dto.UserRequestDto;
 import com.example.demo.model.dto.UserResponseDto;
 import com.example.demo.validation.exception.UserNotFoundException;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Interface UserService.
  */
@@ -21,6 +20,15 @@ public interface UserService {
 	public UserResponseDto createUser(UserRequestDto userRequestDTO);
 
 	/**
+	 * Update user.
+	 *
+	 * @param userRequestDTO the user request DTO
+	 * @return the user response dto
+	 * @throws UserNotFoundException the user not found exception
+	 */
+	public UserResponseDto updateUser(UserRequestDto userRequestDTO) throws UserNotFoundException;
+
+	/**
 	 * Gets the all users.
 	 *
 	 * @return the all users
@@ -32,7 +40,7 @@ public interface UserService {
 	 *
 	 * @param id the id
 	 * @return the user by id
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException the user not found exception
 	 */
 	public UserResponseDto getUserById(Long id) throws UserNotFoundException;
 

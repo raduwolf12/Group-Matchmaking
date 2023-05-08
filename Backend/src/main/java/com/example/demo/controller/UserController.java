@@ -8,13 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.model.dto.UserRequestDto;
 import com.example.demo.model.dto.UserResponseDto;
-import com.example.demo.model.entity.User;
 import com.example.demo.service.UserService;
 import com.example.demo.validation.exception.UserNotFoundException;
 
@@ -49,6 +49,28 @@ public class UserController {
 
 	}
 
+	/**
+	 * Update user.
+	 *
+	 * @param userRequestDTO the user request DTO
+	 * @return the response entity
+	 */
+	@PutMapping("/update/user")
+	public ResponseEntity<UserResponseDto> updateUser(@Valid @RequestBody UserRequestDto userRequestDTO) {
+		try {
+			UserResponseDto userResponseDto = userService.updateUser(userRequestDTO);
+
+			return new ResponseEntity<>(userResponseDto, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	/**
+	 * Gets the all users.
+	 *
+	 * @return the all users
+	 */
 	@GetMapping("/get/users")
 	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
 		try {
@@ -64,15 +86,21 @@ public class UserController {
 		}
 	}
 
+	/**
+	 * Gets the user by id.
+	 *
+	 * @param id the id
+	 * @return the user by id
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@GetMapping("/get/user/{id}")
 
 	public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
-		
+
 		UserResponseDto user = new UserResponseDto();
 		try {
 			user = userService.getUserById(id);
 
-			
 		} catch (Exception e) {
 			throw new UserNotFoundException(e.getMessage());
 		}

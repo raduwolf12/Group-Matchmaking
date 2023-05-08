@@ -4,14 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.model.entity.Project;
+import com.example.demo.model.entity.ProjectPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.repository.ProjectPreferenceRepository;
+import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class DatabasePopulator.
  */
@@ -27,6 +30,13 @@ public class DatabasePopulator {
 	@Autowired
 	private UserRepository userRepository;
 
+	
+	@Autowired
+	private ProjectRepository projectRepository;
+	
+	@Autowired
+	private ProjectPreferenceRepository preferenceRepository;
+	
 	/**
 	 * Populate database.
 	 */
@@ -38,7 +48,7 @@ public class DatabasePopulator {
 			student.setName("whx");
 			student.setCanvasUserId(1L);
 			student.setGroupId(1L);
-			student.setPreferenceId(1L);
+//			student.setPreferenceId(1L);
 			student.setUserId(1L);
 			student.setRole(Role.STUDENT);
 
@@ -46,7 +56,7 @@ public class DatabasePopulator {
 			teacher.setName("qwe");
 			teacher.setCanvasUserId(2L);
 			teacher.setGroupId(2L);
-			teacher.setPreferenceId(2L);
+//			teacher.setPreferenceId(2L);
 			teacher.setUserId(2L);
 			teacher.setRole(Role.TEACHER);
 
@@ -54,13 +64,33 @@ public class DatabasePopulator {
 			professor.setName("abc");
 			professor.setCanvasUserId(3L);
 			professor.setGroupId(3L);
-			professor.setPreferenceId(3L);
+//			professor.setPreferenceId(3L);
 			professor.setUserId(3L);
 			professor.setRole(Role.PROFESSOR);
+			
+			
+			Project project = new Project();
+			project.setDescription("Test proj desc");
+			project.setOwner(professor);
+			project.setSize(8L);
+			project.setTitle("Test project");
+			project.setVisibility(true);
+			
+			
+			ProjectPreference preference = new ProjectPreference();
+			preference.setProject(project);
+			preference.setRank(1);
+			preference.setUser(student);
+			
+			
 
 			userRepository.save(student);
 			userRepository.save(teacher);
 			userRepository.save(professor);
+			
+			
+			projectRepository.save(project);
+			preferenceRepository.save(preference);
 
 		}
 

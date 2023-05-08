@@ -1,0 +1,1 @@
+REVERT JAVA_HOME in mvnw.cmd

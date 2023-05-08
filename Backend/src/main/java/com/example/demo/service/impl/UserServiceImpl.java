@@ -68,4 +68,23 @@ public class UserServiceImpl implements UserService {
 		return userResponseDto;
 	}
 
+	@Override
+	public UserResponseDto updateUser(UserRequestDto userRequestDTO) throws UserNotFoundException {
+		
+		Optional<User> optional = userRepository.findById(userRequestDTO.getUserId());
+		
+		if (optional.isEmpty())
+			throw new UserNotFoundException("User doesn't exist for the Id: " + userRequestDTO.getUserId());
+		
+		User user = optional.get();
+		BeanUtils.copyProperties(userRequestDTO, user);
+
+		userRepository.save(user);
+
+		UserResponseDto userResponseDto = new UserResponseDto();
+		BeanUtils.copyProperties(user, userResponseDto);
+
+		return userResponseDto;
+	}
+
 }

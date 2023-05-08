@@ -1,6 +1,8 @@
 package com.example.demo.model.entity;
 
 
+import java.util.Set;
+
 import com.example.demo.model.entity.enums.Role;
 
 import jakarta.persistence.Column;
@@ -10,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 /**
@@ -38,13 +41,17 @@ public class User {
 	@Column(name = "group_id")
 	Long groupId;
 
-	/** The preference id. */
-	@Column(name = "preference_id")
-	Long preferenceId;
+	
+	@OneToMany(mappedBy="user")
+	private Set<ProjectPreference> projectPreferences;
 
 	/** The role. */
 	@Enumerated(EnumType.STRING)
 	Role role;
+	
+	@OneToMany(mappedBy = "owner")
+	private Set<Project> proposedProjects;
+	
 
 	/**
 	 * Gets the user id.
@@ -118,23 +125,6 @@ public class User {
 		this.groupId = groupId;
 	}
 
-	/**
-	 * Gets the preference id.
-	 *
-	 * @return the preference id
-	 */
-	public Long getPreferenceId() {
-		return preferenceId;
-	}
-
-	/**
-	 * Sets the preference id.
-	 *
-	 * @param preferenceId the new preference id
-	 */
-	public void setPreferenceId(Long preferenceId) {
-		this.preferenceId = preferenceId;
-	}
 
 	/**
 	 * Gets the role.
