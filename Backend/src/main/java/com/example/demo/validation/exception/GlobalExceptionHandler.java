@@ -72,5 +72,16 @@ public class GlobalExceptionHandler {
 
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
+	
+	@ExceptionHandler(ProjectNotFoundException.class)
+	public ResponseEntity<ErrorResponse> handleException(ProjectNotFoundException ex) {
+
+		ErrorResponse errorResponse = new ValidationErrorResponse();
+		errorResponse.setDateTimel(LocalDateTime.now());
+		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
+		errorResponse.setMessage("Invalid data");
+
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
 
 }
