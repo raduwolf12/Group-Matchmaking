@@ -3,6 +3,9 @@ package com.example.demo.validation.exception;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The Class ValidationErrorResponse.
+ */
 public class ValidationErrorResponse extends ErrorResponse {
 
 	/** The errors. */

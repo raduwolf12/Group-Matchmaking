@@ -22,18 +22,32 @@ import com.example.demo.validation.exception.UserNotFoundException;
 
 import jakarta.validation.Valid;
 
+/**
+ * The Class ProjectPreferenceServiceImpl.
+ */
 @Service
 public class ProjectPreferenceServiceImpl implements ProjectPreferenceService {
 
+	/** The preference repository. */
 	@Autowired
 	ProjectPreferenceRepository preferenceRepository;
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
 
+	/** The project repository. */
 	@Autowired
 	ProjectRepository projectRepository;
 
+	/**
+	 * Sets the preferences.
+	 *
+	 * @param preferences the preferences
+	 * @return the list
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@Override
 	public List<ProjectPreferenceResponseDto> setPreferences(@Valid List<ProjectPreferenceRequestDto> preferences)
 			throws UserNotFoundException, ProjectNotFoundException {
@@ -69,19 +83,24 @@ public class ProjectPreferenceServiceImpl implements ProjectPreferenceService {
 		return preferenceResponseDtos;
 	}
 
+	/**
+	 * Gets the preferences.
+	 *
+	 * @param id the id
+	 * @return the preferences
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@Override
 	public List<ProjectPreferenceResponseDto> getPreferences(Long id) throws ProjectNotFoundException {
-		
-		
 
 		Optional<Project> projectOptional = projectRepository.findById(id);
 		if (projectOptional.isEmpty())
 			throw new ProjectNotFoundException("User doesn't exist for the Id: " + id);
-		
+
 		List<ProjectPreferenceResponseDto> preferenceResponseDtos = new ArrayList<ProjectPreferenceResponseDto>();
 
 		List<ProjectPreference> preferences = preferenceRepository.getPreferencesByUserId(id);
-		for(ProjectPreference preference: preferences) {
+		for (ProjectPreference preference : preferences) {
 			ProjectPreferenceResponseDto projectPreferenceResponseDto = new ProjectPreferenceResponseDto();
 			BeanUtils.copyProperties(preference, projectPreferenceResponseDto);
 

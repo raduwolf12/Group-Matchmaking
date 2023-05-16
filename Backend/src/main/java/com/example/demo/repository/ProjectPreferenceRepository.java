@@ -14,6 +14,12 @@ import com.example.demo.model.entity.ProjectPreference;
 @Repository
 public interface ProjectPreferenceRepository extends JpaRepository<ProjectPreference, Long> {
 	
+	/**
+	 * Gets the preferences by user id.
+	 *
+	 * @param id the id
+	 * @return the preferences by user id
+	 */
 	@Query(nativeQuery = true, value = "select * from project_preferences where user_id = :id")
 	List<ProjectPreference> getPreferencesByUserId(Long id);
 

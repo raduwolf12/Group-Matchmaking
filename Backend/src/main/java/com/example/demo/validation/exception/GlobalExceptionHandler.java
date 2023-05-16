@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.validation.ConstraintViolationException;
 
+/**
+ * The Class GlobalExceptionHandler.
+ */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -73,6 +76,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 	
+	/**
+	 * Handle exception.
+	 *
+	 * @param ex the ex
+	 * @return the response entity
+	 */
 	@ExceptionHandler(ProjectNotFoundException.class)
 	public ResponseEntity<ErrorResponse> handleException(ProjectNotFoundException ex) {
 

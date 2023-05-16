@@ -30,13 +30,14 @@ public class DatabasePopulator {
 	@Autowired
 	private UserRepository userRepository;
 
-	
+	/** The project repository. */
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
+	/** The preference repository. */
 	@Autowired
 	private ProjectPreferenceRepository preferenceRepository;
-	
+
 	/**
 	 * Populate database.
 	 */
@@ -67,28 +68,23 @@ public class DatabasePopulator {
 //			professor.setPreferenceId(3L);
 			professor.setUserId(3L);
 			professor.setRole(Role.PROFESSOR);
-			
-			
+
 			Project project = new Project();
 			project.setDescription("Test proj desc");
 			project.setOwner(professor);
 			project.setSize(8L);
 			project.setTitle("Test project");
 			project.setVisibility(true);
-			
-			
+
 			ProjectPreference preference = new ProjectPreference();
 			preference.setProject(project);
 			preference.setRank(1);
 			preference.setUser(student);
-			
-			
 
 			userRepository.save(student);
 			userRepository.save(teacher);
 			userRepository.save(professor);
-			
-			
+
 			projectRepository.save(project);
 			preferenceRepository.save(preference);
 

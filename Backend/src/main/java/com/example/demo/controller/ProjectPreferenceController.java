@@ -23,6 +23,8 @@ import jakarta.validation.Valid;
 
 /**
  * The Class ProjectPreferenceController.
+ * 
+ * @author Radu
  */
 @RestController
 @RequestMapping("/preferences")

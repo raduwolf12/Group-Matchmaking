@@ -2,6 +2,9 @@ package com.example.demo.model.dto;
 
 import com.example.demo.model.entity.enums.Role;
 
+/**
+ * The Class UserResponseDto.
+ */
 public class UserResponseDto {
 	/** The user id. */
 	Long userId;

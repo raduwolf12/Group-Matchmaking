@@ -1,5 +1,8 @@
 package com.example.demo.validation.exception;
 
+/**
+ * The Class ProjectNotFoundException.
+ */
 public class ProjectNotFoundException extends Exception {
 
 	/** The Constant serialVersionUID. */
