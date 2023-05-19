@@ -3,6 +3,8 @@ package com.example.demo.validation.exception;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -17,6 +19,10 @@ import jakarta.validation.ConstraintViolationException;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	
 
 	/**
 	 * Handle exception.
@@ -35,6 +41,8 @@ public class GlobalExceptionHandler {
 		for (FieldError fieldError : errors) {
 			validationErrorResponse.getErrors().put(fieldError.getField(), fieldError.getDefaultMessage());
 		}
+		logger.error(ex.getMessage());
+
 		return new ResponseEntity<ValidationErrorResponse>(validationErrorResponse, HttpStatus.BAD_REQUEST);
 	}
 
@@ -55,6 +63,7 @@ public class GlobalExceptionHandler {
 		ex.getConstraintViolations().forEach(error -> {
 			validationErrorResponse.getErrors().put("field", error.getMessage());
 		});
+		logger.error(ex.getMessage());
 
 		return new ResponseEntity<ValidationErrorResponse>(validationErrorResponse, HttpStatus.BAD_REQUEST);
 	}
@@ -72,6 +81,7 @@ public class GlobalExceptionHandler {
 		errorResponse.setDateTimel(LocalDateTime.now());
 		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
 		errorResponse.setMessage("Invalid data");
+		logger.error(ex.getMessage());
 
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
@@ -89,6 +99,7 @@ public class GlobalExceptionHandler {
 		errorResponse.setDateTimel(LocalDateTime.now());
 		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
 		errorResponse.setMessage("Invalid data");
+		logger.error(ex.getMessage());
 
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}

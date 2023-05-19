@@ -1,10 +1,10 @@
 package com.example.demo.model.entity;
 
-
 import java.util.Set;
 
 import com.example.demo.model.entity.enums.Role;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,7 +12,10 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -41,17 +44,23 @@ public class User {
 	@Column(name = "group_id")
 	Long groupId;
 
-	
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy = "user")
 	private Set<ProjectPreference> projectPreferences;
 
 	/** The role. */
 	@Enumerated(EnumType.STRING)
 	Role role;
-	
+
 	@OneToMany(mappedBy = "owner")
 	private Set<Project> proposedProjects;
-	
+
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
+//	private GroupPreference groupPreference;
+
+	@ManyToOne
+	@JoinColumn(name = "group_preference_id")
+	private GroupPreference preference;
 
 	/**
 	 * Gets the user id.
@@ -124,7 +133,6 @@ public class User {
 	public void setGroupId(Long groupId) {
 		this.groupId = groupId;
 	}
-
 
 	/**
 	 * Gets the role.
