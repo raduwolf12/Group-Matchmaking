@@ -48,6 +48,12 @@
 			<version>1.8</version>
 		</dependency>
 
+		<!-- dependencie for mails-->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+
 		<!-- dependencie for security
 
 		<dependency>

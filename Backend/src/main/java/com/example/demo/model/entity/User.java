@@ -30,26 +30,29 @@ public class User {
 	/** The user id. */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
-	Long userId;
+	private Long userId;
 
 	/** The name. */
 	@Column(name = "name")
-	String name;
+	private String name;
 
 	/** The canvas user id. */
 	@Column(name = "canvas_user_id")
-	Long canvasUserId;
+	private Long canvasUserId;
 
 	/** The group id. */
 	@Column(name = "group_id")
-	Long groupId;
+	private Long groupId;
 
 	@OneToMany(mappedBy = "user")
 	private Set<ProjectPreference> projectPreferences;
 
 	/** The role. */
 	@Enumerated(EnumType.STRING)
-	Role role;
+	private Role role;
+	
+	@Column(name = "password")
+	private String password;
 
 	@OneToMany(mappedBy = "owner")
 	private Set<Project> proposedProjects;
@@ -150,5 +153,13 @@ public class User {
 	 */
 	public void setRole(Role role) {
 		this.role = role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 }

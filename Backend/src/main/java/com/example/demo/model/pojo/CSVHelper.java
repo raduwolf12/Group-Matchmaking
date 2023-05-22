@@ -10,10 +10,13 @@ import java.util.List;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.demo.config.CSVConfig;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.utils.PasswordGenerator;
 
 /**
  * The Class CSVHelper.
@@ -26,6 +29,15 @@ public class CSVHelper {
 	/** The HEADE rs. */
 	static String[] HEADERs = { "name", "canvas_user_id", "user_id", "login_id", "sections", "group_name",
 			"canvas_group_id", "group_id" };
+
+//	private static CSVConfig csvConfig;
+//
+//    public static void setCSVConfig(CSVConfig config) {
+//        csvConfig = config;
+//    }
+    
+    @Value("${app.passwordLength}")
+    private static int length;
 
 	/**
 	 * Checks for CSV format.
@@ -65,7 +77,7 @@ public class CSVHelper {
 				user.setGroupId(null);
 //				user.setPreferenceId(null);
 				user.setRole(Role.STUDENT);
-
+	            user.setPassword(PasswordGenerator.generateRandomPassword(length));
 				users.add(user);
 			}
 
