@@ -2,13 +2,14 @@ package com.example.demo.model.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
 
 /**
  * The Class GroupPreference.
@@ -21,11 +22,13 @@ public class GroupPreference {
 	@Id
 	Long groupPreferenceId;
 
-//	/** The canvas user id. */
-//	@OneToOne(mappedBy = "groupPreference")
-//	private User groupOwner;
-
+	/** The canvas user id. */
+	@JsonBackReference
+	@OneToOne(mappedBy = "groupPreference")
+	private User groupOwner;
+	
 	/** The mates. */
+	@JsonBackReference
 	@OneToMany(mappedBy = "preference")
 	private Set<User> mates;
 
@@ -64,6 +67,14 @@ public class GroupPreference {
 	 */
 	public void setMates(Set<User> mates) {
 		this.mates = mates;
+	}
+
+	public User getGroupOwner() {
+		return groupOwner;
+	}
+
+	public void setGroupOwner(User groupOwner) {
+		this.groupOwner = groupOwner;
 	}
 
 }

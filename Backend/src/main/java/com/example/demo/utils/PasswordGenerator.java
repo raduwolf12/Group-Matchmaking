@@ -2,6 +2,9 @@ package com.example.demo.utils;
 
 import java.util.Random;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class PasswordGenerator {
 	private static final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+";
 

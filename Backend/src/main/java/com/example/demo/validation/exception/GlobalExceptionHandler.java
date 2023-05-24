@@ -19,10 +19,8 @@ import jakarta.validation.ConstraintViolationException;
  */
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-	
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
 	 * Handle exception.
@@ -36,7 +34,7 @@ public class GlobalExceptionHandler {
 		ValidationErrorResponse validationErrorResponse = new ValidationErrorResponse();
 		validationErrorResponse.setDateTimel(LocalDateTime.now());
 		validationErrorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
-		validationErrorResponse.setMessage("Invalid data");
+		validationErrorResponse.setMessage("Invalid data " + ex.getMessage());
 
 		for (FieldError fieldError : errors) {
 			validationErrorResponse.getErrors().put(fieldError.getField(), fieldError.getDefaultMessage());
@@ -58,7 +56,7 @@ public class GlobalExceptionHandler {
 		ValidationErrorResponse validationErrorResponse = new ValidationErrorResponse();
 		validationErrorResponse.setDateTimel(LocalDateTime.now());
 		validationErrorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
-		validationErrorResponse.setMessage("Invalid data");
+		validationErrorResponse.setMessage("Invalid data " + ex.getMessage());
 
 		ex.getConstraintViolations().forEach(error -> {
 			validationErrorResponse.getErrors().put("field", error.getMessage());
@@ -80,12 +78,12 @@ public class GlobalExceptionHandler {
 		ErrorResponse errorResponse = new ValidationErrorResponse();
 		errorResponse.setDateTimel(LocalDateTime.now());
 		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
-		errorResponse.setMessage("Invalid data");
+		errorResponse.setMessage("Invalid data " + ex.getMessage());
 		logger.error(ex.getMessage());
 
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
-	
+
 	/**
 	 * Handle exception.
 	 *
@@ -98,7 +96,19 @@ public class GlobalExceptionHandler {
 		ErrorResponse errorResponse = new ValidationErrorResponse();
 		errorResponse.setDateTimel(LocalDateTime.now());
 		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
-		errorResponse.setMessage("Invalid data");
+		errorResponse.setMessage("Invalid data " + ex.getMessage());
+		logger.error(ex.getMessage());
+
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(GroupPreferenceException.class)
+	public ResponseEntity<ErrorResponse> handleException(GroupPreferenceException ex) {
+
+		ErrorResponse errorResponse = new ValidationErrorResponse();
+		errorResponse.setDateTimel(LocalDateTime.now());
+		errorResponse.setStatuscode(HttpStatus.BAD_REQUEST.value());
+		errorResponse.setMessage(ex.getMessage());
 		logger.error(ex.getMessage());
 
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);

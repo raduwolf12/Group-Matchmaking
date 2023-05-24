@@ -49,6 +49,8 @@ public class DatabasePopulator {
 			student.setName("whx");
 			student.setCanvasUserId(1L);
 			student.setGroupId(1L);
+			student.setEmail("whx862@alumni.ku.dk");
+			student.setPassword("TESTUSERPASS");
 //			student.setPreferenceId(1L);
 			student.setUserId(1L);
 			student.setRole(Role.STUDENT);
