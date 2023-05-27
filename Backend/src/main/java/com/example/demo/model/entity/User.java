@@ -1,6 +1,10 @@
 package com.example.demo.model.entity;
 
+import java.util.Collection;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -20,7 +24,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  * 
@@ -28,7 +31,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails{
 
 	/** The user id. */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -275,6 +278,36 @@ public class User {
 	 */
 	public void setPreferenceMate(GroupPreference preference) {
 		this.preference = preference;
+	}
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		return null;
+	}
+
+	@Override
+	public String getUsername() {
+		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return false;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return false;
 	}
 	
 }
