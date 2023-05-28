@@ -31,7 +31,7 @@ import jakarta.persistence.Table;
  */
 @Entity
 @Table(name = "users")
-public class User implements UserDetails{
+public class User {
 
 	/** The user id. */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,7 +41,7 @@ public class User implements UserDetails{
 	/** The name. */
 	@Column(name = "name")
 	private String name;
-	
+
 	/** The email. */
 	@Column(name = "email")
 	private String email;
@@ -53,7 +53,7 @@ public class User implements UserDetails{
 	/** The group id. */
 	@Column(name = "group_id")
 	private Long groupId;
-	
+
 	/** The project preferences. */
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
@@ -62,8 +62,11 @@ public class User implements UserDetails{
 	/** The role. */
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	
+
 	/** The password. */
+	@Column(name = "password_temporary")
+	private String passwordTemporary;
+
 	@Column(name = "password")
 	private String password;
 
@@ -76,11 +79,19 @@ public class User implements UserDetails{
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
 	private GroupPreference groupPreference;
-	
+
 	/** The preference of team mates. */
 	@ManyToOne
 	@JoinColumn(name = "group_preference_id")
 	private GroupPreference preference;
+
+	public String getPasswordTemporary() {
+		return passwordTemporary;
+	}
+
+	public void setPasswordTemporary(String passwordTemporary) {
+		this.passwordTemporary = passwordTemporary;
+	}
 
 	/**
 	 * Gets the email.
@@ -279,35 +290,4 @@ public class User implements UserDetails{
 	public void setPreferenceMate(GroupPreference preference) {
 		this.preference = preference;
 	}
-
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
-	}
-
-	@Override
-	public String getUsername() {
-		return this.email;
-	}
-
-	@Override
-	public boolean isAccountNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isAccountNonLocked() {
-		return false;
-	}
-
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return false;
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return false;
-	}
-	
 }

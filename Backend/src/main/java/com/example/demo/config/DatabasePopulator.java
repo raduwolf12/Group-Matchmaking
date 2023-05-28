@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.entity.Project;
@@ -37,6 +38,10 @@ public class DatabasePopulator {
 	/** The preference repository. */
 	@Autowired
 	private ProjectPreferenceRepository preferenceRepository;
+	
+	@Autowired
+	PasswordEncoder encoder;
+	
 
 	/**
 	 * Populate database.
@@ -50,7 +55,9 @@ public class DatabasePopulator {
 			student.setCanvasUserId(1L);
 			student.setGroupId(1L);
 			student.setEmail("whx862@alumni.ku.dk");
-			student.setPassword("TESTUSERPASS");
+			student.setPassword(encoder.encode("TESTUSERPASS"));
+			student.setPasswordTemporary("TESTUSERPASS");
+
 //			student.setPreferenceId(1L);
 			student.setUserId(1L);
 			student.setRole(Role.STUDENT);
