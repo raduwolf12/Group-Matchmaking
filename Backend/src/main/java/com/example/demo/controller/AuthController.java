@@ -1,8 +1,5 @@
 package com.example.demo.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,16 +21,28 @@ import com.example.demo.utils.JwtUtils;
 
 import jakarta.validation.Valid;
 
+/**
+ * The Class AuthController.
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+	
+	/** The authentication manager. */
 	@Autowired
 	AuthenticationManager authenticationManager;
 
+	/** The jwt utils. */
 	@Autowired
 	JwtUtils jwtUtils;
 
+	/**
+	 * Authenticate user.
+	 *
+	 * @param loginRequest the login request
+	 * @return the response entity
+	 */
 	@PostMapping("/login")
 	public ResponseEntity<?> authenticateUser(@Valid @RequestBody AuthRequest loginRequest) {
 		try {
@@ -44,13 +53,10 @@ public class AuthController {
 			String jwt = jwtUtils.generateJwtToken(authentication);
 
 			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-//			List<String> roles = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
-//					.collect(Collectors.toList());
 
 			return ResponseEntity.ok(new AuthResponse(userDetails.getEmail(), jwt));
 		} catch (BadCredentialsException ex) {
 			return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
 		}
 	}
-
 }

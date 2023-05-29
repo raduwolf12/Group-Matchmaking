@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,14 +29,23 @@ import jakarta.validation.Valid;
  * 
  * @author Radu
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/projects")
 public class ProjectController {
+
+	/** The project service. */
 	@Autowired
 	ProjectService projectService;
 
+	/**
+	 * Creates the project.
+	 *
+	 * @param projectRequestDto the project request dto
+	 * @return the response entity
+	 */
 	@PostMapping("/save/project")
-	@PreAuthorize ("hasAuthority ('PROFESSOR')" )
+	@PreAuthorize ("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> createProject(@Valid @RequestBody ProjectRequestDto projectRequestDto) {
 
 		ProjectResponseDto projectResponseDto;
@@ -48,8 +58,14 @@ public class ProjectController {
 
 	}
 
+	/**
+	 * Update project.
+	 *
+	 * @param projectRequestDto the project request dto
+	 * @return the response entity
+	 */
 	@PutMapping("/update/project")
-	@PreAuthorize ("hasAuthority ('PROFESSOR')" )
+	@PreAuthorize ("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> updateProject(@Valid @RequestBody ProjectRequestDto projectRequestDto) {
 
 		try {
@@ -61,8 +77,15 @@ public class ProjectController {
 		}
 	}
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param id the id
+	 * @return the project
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@GetMapping("/get/project/{id}")
-	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')" )
+	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> getProject(@PathVariable Long id) throws ProjectNotFoundException {
 
 		ProjectResponseDto project = new ProjectResponseDto();
@@ -75,8 +98,13 @@ public class ProjectController {
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
 
+	/**
+	 * Gets the all projects.
+	 *
+	 * @return the all projects
+	 */
 	@GetMapping("/get/projects")
-	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')" )
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<List<ProjectResponseDto>> getAllProjects() {
 
 		try {
@@ -93,8 +121,15 @@ public class ProjectController {
 
 	}
 
+	/**
+	 * Delete project.
+	 *
+	 * @param id the id
+	 * @return the response entity
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@DeleteMapping("/delete/project/id")
-	@PreAuthorize ("hasAuthority ('PROFESSOR')" )
+	@PreAuthorize("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<ProjectResponseDto> deleteProject(@PathVariable Long id) throws ProjectNotFoundException {
 
 		try {

@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,7 @@ import jakarta.validation.Valid;
  * 
  * @author Radu
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -41,6 +44,7 @@ public class UserController {
 	 * @return the response entity
 	 */
 	@PostMapping("/save/user")
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<UserResponseDto> createUser(@Valid @RequestBody UserRequestDto userRequestDTO) {
 
 		UserResponseDto userResponseDto;
@@ -57,6 +61,7 @@ public class UserController {
 	 * @return the response entity
 	 */
 	@PutMapping("/update/user")
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<UserResponseDto> updateUser(@Valid @RequestBody UserRequestDto userRequestDTO) {
 		try {
 			UserResponseDto userResponseDto = userService.updateUser(userRequestDTO);
@@ -73,6 +78,7 @@ public class UserController {
 	 * @return the all users
 	 */
 	@GetMapping("/get/users")
+	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
 		try {
 			List<UserResponseDto> users = userService.getAllUsers();
@@ -95,7 +101,7 @@ public class UserController {
 	 * @throws UserNotFoundException the user not found exception
 	 */
 	@GetMapping("/get/user/{id}")
-
+	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) throws UserNotFoundException {
 
 		UserResponseDto user = new UserResponseDto();
@@ -116,7 +122,7 @@ public class UserController {
 	 * @throws UserNotFoundException the user not found exception
 	 */
 	@DeleteMapping("/delete/user/{id}")
-
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<UserResponseDto> removeUserById(@PathVariable Long id) throws UserNotFoundException {
 
 		try {
@@ -135,6 +141,7 @@ public class UserController {
 	 * @throws UserNotFoundException the user not found exception
 	 */
 	@DeleteMapping("/delete/users")
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<UserResponseDto> removeAllUsers() throws UserNotFoundException {
 		userService.deleteAllUsers();
 		return new ResponseEntity<>(null, HttpStatus.OK);

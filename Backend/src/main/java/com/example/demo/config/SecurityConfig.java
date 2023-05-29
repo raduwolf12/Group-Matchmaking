@@ -58,8 +58,14 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**").permitAll()
-						.requestMatchers("/projects/**").permitAll().anyRequest().authenticated());
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/auth/**").permitAll()
+						.requestMatchers("/projects/**").permitAll()
+						.requestMatchers("/api/**").permitAll()
+						.requestMatchers("/form/**").permitAll()
+						.requestMatchers("/preferences/**").permitAll()
+						.requestMatchers("/users/**").permitAll()
+						.anyRequest().authenticated());
 
 		http.authenticationProvider(authenticationProvider());
 

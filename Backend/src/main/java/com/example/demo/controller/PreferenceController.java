@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +32,7 @@ import jakarta.validation.Valid;
  * 
  * @author Radu
  */
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/preferences")
 public class PreferenceController {
@@ -38,10 +41,20 @@ public class PreferenceController {
 	@Autowired
 	ProjectPreferenceService projectPreferenceService;
 
+	/** The group preference service. */
 	@Autowired
 	GroupPreferenceService groupPreferenceService;
 
+	/**
+	 * Sets the project preferences.
+	 *
+	 * @param preferences the preferences
+	 * @return the response entity
+	 * @throws ProjectNotFoundException the project not found exception
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@PostMapping("/save/project/preference")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<List<ProjectPreferenceResponseDto>> setProjectPreferences(
 			@Valid @RequestBody List<ProjectPreferenceRequestDto> preferences)
 			throws ProjectNotFoundException, UserNotFoundException {
@@ -60,7 +73,15 @@ public class PreferenceController {
 
 	}
 
+	/**
+	 * Gets the project preferences.
+	 *
+	 * @param id the id
+	 * @return the project preferences
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@GetMapping("/get/project/preference/{id}")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<List<ProjectPreferenceResponseDto>> getProjectPreferences(@PathVariable Long id)
 			throws ProjectNotFoundException {
 
@@ -75,7 +96,15 @@ public class PreferenceController {
 
 	}
 
+	/**
+	 * Sets the group preferences.
+	 *
+	 * @param preferences the preferences
+	 * @return the response entity
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@PostMapping("/save/group/preference")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<GroupPreferenceResponseDto> setGroupPreferences(
 			@RequestBody GroupPreferenceRequestDto preferences) throws UserNotFoundException {
 
@@ -91,7 +120,16 @@ public class PreferenceController {
 
 	}
 
+	/**
+	 * Gets the group preferences by user id.
+	 *
+	 * @param userId the user id
+	 * @return the group preferences by user id
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
+	 */
 	@GetMapping("/get/group/preference/{userId}")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<GroupPreferenceResponseDto> getGroupPreferencesByUserId(@PathVariable Long userId)
 			throws UserNotFoundException, GroupPreferenceException {
 
