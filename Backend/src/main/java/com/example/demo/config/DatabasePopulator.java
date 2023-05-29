@@ -58,25 +58,30 @@ public class DatabasePopulator {
 			student.setPassword(encoder.encode("TESTUSERPASS"));
 			student.setPasswordTemporary("TESTUSERPASS");
 
-//			student.setPreferenceId(1L);
 			student.setUserId(1L);
 			student.setRole(Role.STUDENT);
 
 			User teacher = new User();
 			teacher.setName("qwe");
+			teacher.setEmail("qwe@alumni.ku.dk");
+
 			teacher.setCanvasUserId(2L);
 			teacher.setGroupId(2L);
-//			teacher.setPreferenceId(2L);
 			teacher.setUserId(2L);
 			teacher.setRole(Role.TEACHER);
+			teacher.setPassword(encoder.encode("TESTUSERPASS"));
+			teacher.setPasswordTemporary("TESTUSERPASS");
 
 			User professor = new User();
 			professor.setName("abc");
+			professor.setEmail("abc@alumni.ku.dk");
+
 			professor.setCanvasUserId(3L);
 			professor.setGroupId(3L);
-//			professor.setPreferenceId(3L);
 			professor.setUserId(3L);
 			professor.setRole(Role.PROFESSOR);
+			professor.setPassword(encoder.encode("TESTUSERPASS"));
+			professor.setPasswordTemporary("TESTUSERPASS");
 
 			Project project = new Project();
 			project.setDescription("Test proj desc");
