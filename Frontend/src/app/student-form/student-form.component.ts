@@ -18,7 +18,7 @@ export class StudentFormComponent {
 
   projectList: string[] = ['PROJECT1', 'PROJECT2', 'PROJECTT3', 'PROJECT4'];
 
-  states: string[] = [
+  students: string[] = [
     'Alabama',
     'Alaska',
     'Arizona',
@@ -71,15 +71,16 @@ export class StudentFormComponent {
     'Wyoming',
   ];
 
-  selectedStates = this.states;
-  selectedProjects = this.projectList;
+  filteredStudents = this.students;
+  // selectedProjects = this.projectList;
 
-  selected;
-  selectedProject;
+  selectedStudent;
+  selectedStudentList = [];
+  selectedProjects;
 
   drop(event: CdkDragDrop<string[]>) {
     moveItemInArray(
-      this.selectedProject,
+      this.selectedProjects,
       event.previousIndex,
       event.currentIndex
     );
@@ -87,31 +88,32 @@ export class StudentFormComponent {
 
   onKey(event) {
     console.log(event.target.value);
-    this.selectedStates = this.search(event.target.value);
+    this.filteredStudents = this.searchStudent(event.target.value);
   }
 
-  onKeyProject(event) {
-    console.log(event.target.value);
-    this.selectedProjects = this.searchProject(event.target.value);
-  }
-  addUser() {
-    console.log(this.selected);
-    this.selected = null;
+  // onKeyProject(event) {
+  //   console.log(event.target.value);
+  //   this.selectedProjectss = this.searchProject(event.target.value);
+  // }
+  addStudent() {
+    console.log(this.selectedStudent);
+    this.selectedStudentList.push(this.selectedStudent);
+    this.selectedStudent = null;
   }
   addProjects() {
-    console.log(this.selectedProject);
-    this.selectedProject = null;
+    console.log(this.selectedProjects);
+    // this.selectedProjects = null;
   }
-  search(value: string) {
+  searchStudent(value: string) {
     let filter = value.toLowerCase();
-    return this.states.filter((option) =>
+    return this.students.filter((option) =>
       option.toLowerCase().includes(filter)
     );
   }
-  searchProject(value: string) {
-    let filter = value.toLowerCase();
-    return this.projectList.filter((option) =>
-      option.toLowerCase().includes(filter)
-    );
-  }
+  // searchProject(value: string) {
+  //   let filter = value.toLowerCase();
+  //   return this.projectList.filter((option) =>
+  //     option.toLowerCase().includes(filter)
+  //   );
+  // }
 }
