@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,6 +25,10 @@ public class CSVServiceImpl implements CSVService {
 	/** The repository. */
 	@Autowired
 	UserRepository repository;
+	
+	@Autowired
+	PasswordEncoder encoder;
+	
 
 	/**
 	 * Save.
@@ -33,6 +38,9 @@ public class CSVServiceImpl implements CSVService {
 	public void save(MultipartFile file) {
 		try {
 			List<User> tutorials = CSVHelper.csvToTutorials(file.getInputStream());
+			for(User user:tutorials) {
+				user.setPassword(encoder.encode(user.getPassword()));
+			}
 			repository.saveAll(tutorials);
 		} catch (IOException e) {
 			throw new RuntimeException("fail to store csv data: " + e.getMessage());
@@ -53,6 +61,5 @@ public class CSVServiceImpl implements CSVService {
 			userResponseDtos.add(userResponseDto);
 		}
 		return userResponseDtos;
-//		return repository.findAll();
 	}
 }

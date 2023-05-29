@@ -2,24 +2,47 @@ package com.example.demo.model.dto;
 
 import com.example.demo.model.entity.enums.Role;
 
+/**
+ * The Class UserResponseDto.
+ */
 public class UserResponseDto {
 	/** The user id. */
-	Long userId;
+	private Long userId;
 
 	/** The name. */
-	String name;
+	private String name;
 
 	/** The canvas user id. */
-	Long canvasUserId;
+	private Long canvasUserId;
 
 	/** The group id. */
-	Long groupId;
+	private Long groupId;
 
 	/** The preference id. */
-	Long preferenceId;
+	private Long preferenceId;
 
 	/** The role. */
-	Role role;
+	private Role role;
+	
+	private String password;
+	
+	private String email;
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	/**
 	 * Gets the user id.

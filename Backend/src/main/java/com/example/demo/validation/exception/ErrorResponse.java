@@ -2,6 +2,9 @@ package com.example.demo.validation.exception;
 
 import java.time.LocalDateTime;
 
+/**
+ * The Class ErrorResponse.
+ */
 public class ErrorResponse {
 	
 	/** The message. */

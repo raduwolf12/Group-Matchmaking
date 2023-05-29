@@ -4,6 +4,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+*.jar
+!demo-0.0.1-SNAPSHOT.jar
+
 ### STS ###
 .apt_generated
 .classpath

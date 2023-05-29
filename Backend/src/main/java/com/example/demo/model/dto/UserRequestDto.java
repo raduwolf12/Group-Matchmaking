@@ -37,6 +37,17 @@ public class UserRequestDto {
 	@NotNull
 	@ValueOfEnum(anyOf = { Role.PROFESSOR, Role.STUDENT, Role.TEACHER })
 	Role role;
+	
+	private String email;
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
 	/**
 	 * Gets the user id.

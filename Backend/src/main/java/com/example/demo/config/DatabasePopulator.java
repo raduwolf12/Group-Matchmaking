@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.model.entity.Project;
@@ -30,13 +31,18 @@ public class DatabasePopulator {
 	@Autowired
 	private UserRepository userRepository;
 
-	
+	/** The project repository. */
 	@Autowired
 	private ProjectRepository projectRepository;
-	
+
+	/** The preference repository. */
 	@Autowired
 	private ProjectPreferenceRepository preferenceRepository;
 	
+	@Autowired
+	PasswordEncoder encoder;
+	
+
 	/**
 	 * Populate database.
 	 */
@@ -48,6 +54,10 @@ public class DatabasePopulator {
 			student.setName("whx");
 			student.setCanvasUserId(1L);
 			student.setGroupId(1L);
+			student.setEmail("whx862@alumni.ku.dk");
+			student.setPassword(encoder.encode("TESTUSERPASS"));
+			student.setPasswordTemporary("TESTUSERPASS");
+
 //			student.setPreferenceId(1L);
 			student.setUserId(1L);
 			student.setRole(Role.STUDENT);
@@ -67,28 +77,23 @@ public class DatabasePopulator {
 //			professor.setPreferenceId(3L);
 			professor.setUserId(3L);
 			professor.setRole(Role.PROFESSOR);
-			
-			
+
 			Project project = new Project();
 			project.setDescription("Test proj desc");
 			project.setOwner(professor);
 			project.setSize(8L);
 			project.setTitle("Test project");
 			project.setVisibility(true);
-			
-			
+
 			ProjectPreference preference = new ProjectPreference();
 			preference.setProject(project);
 			preference.setRank(1);
 			preference.setUser(student);
-			
-			
 
 			userRepository.save(student);
 			userRepository.save(teacher);
 			userRepository.save(professor);
-			
-			
+
 			projectRepository.save(project);
 			preferenceRepository.save(preference);
 

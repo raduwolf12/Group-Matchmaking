@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.utils.PasswordGenerator;
 
 /**
  * The Class CSVHelper.
@@ -26,6 +27,9 @@ public class CSVHelper {
 	/** The HEADE rs. */
 	static String[] HEADERs = { "name", "canvas_user_id", "user_id", "login_id", "sections", "group_name",
 			"canvas_group_id", "group_id" };
+
+	/** The password length. */
+	private static int PASSWORD_LENGTH = 10;
 
 	/**
 	 * Checks for CSV format.
@@ -62,10 +66,11 @@ public class CSVHelper {
 				user.setName(csvRecord.get("name"));
 				user.setCanvasUserId(Long.parseLong(csvRecord.get("canvas_user_id")));
 				user.setUserId(Long.parseLong(csvRecord.get("user_id")));
+				user.setEmail(csvRecord.get("login_id"));
 				user.setGroupId(null);
-//				user.setPreferenceId(null);
 				user.setRole(Role.STUDENT);
-
+				user.setPassword(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
+				user.setPasswordTemporary(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
 				users.add(user);
 			}
 
