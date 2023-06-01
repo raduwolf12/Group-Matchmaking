@@ -70,6 +70,7 @@ public class CSVHelper {
 				user.setGroupId(null);
 				user.setRole(Role.STUDENT);
 				user.setPassword(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
+				user.setPasswordTemporary(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
 				users.add(user);
 			}
 

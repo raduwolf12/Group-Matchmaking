@@ -1,6 +1,10 @@
 package com.example.demo.model.entity;
 
+import java.util.Collection;
 import java.util.Set;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -20,7 +24,6 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
-// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  * 
@@ -38,7 +41,7 @@ public class User {
 	/** The name. */
 	@Column(name = "name")
 	private String name;
-	
+
 	/** The email. */
 	@Column(name = "email")
 	private String email;
@@ -50,7 +53,7 @@ public class User {
 	/** The group id. */
 	@Column(name = "group_id")
 	private Long groupId;
-	
+
 	/** The project preferences. */
 	@JsonManagedReference
 	@OneToMany(mappedBy = "user")
@@ -59,8 +62,11 @@ public class User {
 	/** The role. */
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	
+
 	/** The password. */
+	@Column(name = "password_temporary")
+	private String passwordTemporary;
+
 	@Column(name = "password")
 	private String password;
 
@@ -73,11 +79,19 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
 	private GroupPreference groupPreference;
-	
+
 	/** The preference of team mates. */
 	@ManyToOne
 	@JoinColumn(name = "group_preference_id")
 	private GroupPreference preference;
+
+	public String getPasswordTemporary() {
+		return passwordTemporary;
+	}
+
+	public void setPasswordTemporary(String passwordTemporary) {
+		this.passwordTemporary = passwordTemporary;
+	}
 
 	/**
 	 * Gets the email.
@@ -276,5 +290,4 @@ public class User {
 	public void setPreferenceMate(GroupPreference preference) {
 		this.preference = preference;
 	}
-	
 }

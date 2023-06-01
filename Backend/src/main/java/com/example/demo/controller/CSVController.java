@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,7 @@ import com.example.demo.service.CSVService;
 /**
  * The Class CSVController.
  */
-@CrossOrigin("http://localhost:8080")
+@CrossOrigin(origins = "*", maxAge = 3600)
 @Controller
 @RequestMapping("/api/csv")
 public class CSVController {
@@ -37,6 +38,7 @@ public class CSVController {
 	 * @return the response entity
 	 */
 	@PostMapping("/upload")
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
 		String message = "";
 
@@ -56,24 +58,24 @@ public class CSVController {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
 	}
 
-	/**
-	 * Gets the all tutorials.
-	 *
-	 * @return the all tutorials
-	 */
-	@GetMapping("/users")
-	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
-		try {
-			List<UserResponseDto> users = fileService.getAllUsers();
-
-			if (users.isEmpty()) {
-				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-			}
-
-			return new ResponseEntity<>(users, HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+//	/**
+//	 * Gets the all tutorials.
+//	 *
+//	 * @return the all tutorials
+//	 */
+//	@GetMapping("/users")
+//	public ResponseEntity<List<UserResponseDto>> getAllUsers() {
+//		try {
+//			List<UserResponseDto> users = fileService.getAllUsers();
+//
+//			if (users.isEmpty()) {
+//				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//			}
+//
+//			return new ResponseEntity<>(users, HttpStatus.OK);
+//		} catch (Exception e) {
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
+//	}
 
 }
