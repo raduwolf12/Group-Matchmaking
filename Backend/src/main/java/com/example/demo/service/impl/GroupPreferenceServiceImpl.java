@@ -1,6 +1,7 @@
 package com.example.demo.service.impl;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.dto.GroupPreferenceRequestDto;
 import com.example.demo.model.dto.GroupPreferenceResponseDto;
-import com.example.demo.model.entity.GroupPreference;
+import com.example.demo.model.entity.PairPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.repository.GroupPreferenceRepository;
 import com.example.demo.repository.UserRepository;
@@ -18,46 +19,52 @@ import com.example.demo.service.GroupPreferenceService;
 import com.example.demo.validation.exception.GroupPreferenceException;
 import com.example.demo.validation.exception.UserNotFoundException;
 
+/**
+ * The Class GroupPreferenceServiceImpl.
+ */
 @Service
 public class GroupPreferenceServiceImpl implements GroupPreferenceService {
 
+	/** The group preference repository. */
 	@Autowired
 	GroupPreferenceRepository groupPreferenceRepository;
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * Sets the preferences.
+	 *
+	 * @param preferences the preferences
+	 * @return the group preference response dto
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@Override
 	public GroupPreferenceResponseDto setPreferences(GroupPreferenceRequestDto preferences)
 			throws UserNotFoundException {
 
-		GroupPreference groupPreference = new GroupPreference();
+		PairPreference groupPreference = new PairPreference();
 
 		Optional<User> groupOwnerOptional = userRepository.findById(preferences.getGroupOwner());
 
 		if (groupOwnerOptional.isEmpty())
 			throw new UserNotFoundException("User doesn't exist for the Id: " + preferences.getGroupOwner());
 
-		User groupOwner = groupOwnerOptional.get();
-		groupOwner.setGroupPreferenceOwner(groupPreference);
-		groupOwner.setPreferenceMate(groupPreference);
-
-		groupPreference.setGroupOwner(groupOwner);
-
-		Set<User> mates = new HashSet<User>();
-		for (Long teamMateId : preferences.getMates()) {
-
-			Optional<User> teamMateOptional = userRepository.findById(teamMateId);
-
-			if (teamMateOptional.isEmpty())
-				throw new UserNotFoundException("User doesn't exist for the Id: " + teamMateId);
-
-			User teamMate = teamMateOptional.get();
-			teamMate.setGroupPreferenceOwner(groupPreference);
-			teamMate.setPreferenceMate(groupPreference);
-			mates.add(teamMate);
+		List<User> mates = userRepository.findAllById(preferences.getMates());
+		if (mates.size() != preferences.getMates().size()) {
+			throw new UserNotFoundException("One or more users don't exist");
 		}
-		groupPreference.setMates(mates);
+
+		groupPreference.setGroupCreator(groupOwnerOptional.get());
+		List<User> users = groupPreference.getUsers();
+		if (users != null) {
+			users.addAll(mates);
+		} else {
+			users = mates;
+		}
+
+		groupPreference.setUsers(users);
 
 		groupPreferenceRepository.save(groupPreference);
 
@@ -69,34 +76,35 @@ public class GroupPreferenceServiceImpl implements GroupPreferenceService {
 		return groupPreferenceResponseDto;
 	}
 
+	/**
+	 * Gets the preferences.
+	 *
+	 * @param userId the user id
+	 * @return the preferences
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
+	 */
 	@Override
-	public GroupPreferenceResponseDto getPreferences(Long id) throws UserNotFoundException, GroupPreferenceException {
-		Optional<User> userOptional = userRepository.findById(id);
+	public GroupPreferenceResponseDto getPreferences(Long userId)
+			throws UserNotFoundException, GroupPreferenceException {
+		User user = userRepository.findById(userId)
+				.orElseThrow(() -> new UserNotFoundException("User doesn't exist for the Id: " + userId));
 
-		if (userOptional.isEmpty())
-			throw new UserNotFoundException("User doesn't exist for the Id: " + id);
+		PairPreference pairPreferences = groupPreferenceRepository.findByUserId(user.getUserId())
+				.orElseThrow(() -> new GroupPreferenceException("GroupPreference not found for User Id: " + userId));
 
-		User user = userOptional.get();
-		
-		if(user.getGroupPreferenceOwner()==null) {
-			throw new GroupPreferenceException("No group preference found!");
+		GroupPreferenceResponseDto responseDto = new GroupPreferenceResponseDto();
+		responseDto.setGroupPreferenceId(pairPreferences.getGroupPreferenceId());
+		responseDto.setGroupOwner(pairPreferences.getGroupCreator().getUserId());
+
+		Set<Long> mateIds = new HashSet<>();
+		for (User mate : pairPreferences.getUsers()) {
+			mateIds.add(mate.getUserId());
 		}
+		responseDto.setMates(mateIds);
 
-		Long ownerId = user.getGroupPreferenceOwner().getGroupPreferenceId();
+		return responseDto;
 
-		GroupPreference groupPreference = groupPreferenceRepository.findById(ownerId).get();
-
-		GroupPreferenceResponseDto dto = new GroupPreferenceResponseDto();
-		dto.setGroupOwner(groupPreference.getGroupOwner().getUserId());
-		dto.setGroupPreferenceId(groupPreference.getGroupPreferenceId());
-
-		Set<Long> mates = new HashSet<Long>();
-		for (User teamMate : groupPreference.getMates()) {
-			mates.add(teamMate.getUserId());
-		}
-		dto.setMates(mates);
-
-		return dto;
 	}
 
 }

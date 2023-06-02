@@ -1,16 +1,12 @@
 package com.example.demo.model.entity;
 
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
-
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.demo.model.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -19,9 +15,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 /**
@@ -75,16 +71,27 @@ public class User {
 	@OneToMany(mappedBy = "owner")
 	private Set<Project> proposedProjects;
 
-	/** The group preference owner. */
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
-	private GroupPreference groupPreference;
+//	/** The group preference owner. */
+//	@OneToOne(cascade = CascadeType.ALL)
+//	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
+//	private GroupPreference groupPreference;
 
 	/** The preference of team mates. */
-	@ManyToOne
-	@JoinColumn(name = "group_preference_id")
-	private GroupPreference preference;
+//	@ManyToOne
+//	@JoinColumn(name = "group_preference_id")
+//	private GroupPreference preference;
 
+//	@JsonBackReference
+//	@OneToMany(mappedBy = "mate")
+//	private Set<GroupPreference> mates;
+	@ManyToMany
+    @JoinTable(
+        name = "pair_preferences_users",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "pair_preferences_id")
+    )
+    private List<PairPreference> pairPreferences;
+	
 	public String getPasswordTemporary() {
 		return passwordTemporary;
 	}
@@ -255,39 +262,49 @@ public class User {
 		this.proposedProjects = proposedProjects;
 	}
 
+	public List<PairPreference> getPairPreferences() {
+		return pairPreferences;
+	}
+
+	public void setPairPreferences(List<PairPreference> pairPreferences) {
+		this.pairPreferences = pairPreferences;
+	}
+	
+	
+
 	/**
 	 * Gets the group preference.
 	 *
 	 * @return the group preference
 	 */
-	public GroupPreference getGroupPreferenceOwner() {
-		return groupPreference;
-	}
-
-	/**
-	 * Sets the group preference.
-	 *
-	 * @param groupPreference the new group preference
-	 */
-	public void setGroupPreferenceOwner(GroupPreference groupPreference) {
-		this.groupPreference = groupPreference;
-	}
+//	public GroupPreference getGroupPreferenceOwner() {
+//		return groupPreference;
+//	}
+//
+//	/**
+//	 * Sets the group preference.
+//	 *
+//	 * @param groupPreference the new group preference
+//	 */
+//	public void setGroupPreferenceOwner(GroupPreference groupPreference) {
+//		this.groupPreference = groupPreference;
+//	}
 
 	/**
 	 * Gets the preference.
 	 *
 	 * @return the preference
 	 */
-	public GroupPreference getPreferenceMate() {
-		return preference;
-	}
-
-	/**
-	 * Sets the preference.
-	 *
-	 * @param preference the new preference
-	 */
-	public void setPreferenceMate(GroupPreference preference) {
-		this.preference = preference;
-	}
+//	public GroupPreference getPreferenceMate() {
+//		return preference;
+//	}
+//
+//	/**
+//	 * Sets the preference.
+//	 *
+//	 * @param preference the new preference
+//	 */
+//	public void setPreferenceMate(GroupPreference preference) {
+//		this.preference = preference;
+//	}
 }
