@@ -79,6 +79,7 @@ public class FormController {
 	 * @return the response entity
 	 */
 	@GetMapping("/close")
+	@PreAuthorize ("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<String> closeForm() {
 
 		formService.closeFormManualy();

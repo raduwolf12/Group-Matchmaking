@@ -33,7 +33,6 @@ public class FormServiceImpl implements FormService {
 		form.setOpen(true);
 		form.setOpeningTime(now);
 		formRepository.save(form);
-
 	}
 
 	/**
@@ -46,6 +45,7 @@ public class FormServiceImpl implements FormService {
 		List<Form> formsToClose = formRepository.findOpenFormsBeforeTime(now.minusDays(1));
 
 		for (Form form : formsToClose) {
+			if (form.getOpeningTime().plusDays(form.getDurationInDays()).isAfter(now)) continue;
 			form.setOpen(false);
 			formRepository.save(form);
 		}
