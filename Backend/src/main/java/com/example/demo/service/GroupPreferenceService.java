@@ -11,4 +11,6 @@ public interface GroupPreferenceService {
 
 	GroupPreferenceResponseDto getPreferences(Long id) throws UserNotFoundException, GroupPreferenceException;
 
+	void leavePair(Long userId) throws UserNotFoundException;
+
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.example.demo.model.dto.ProjectPreferenceRequestDto;
 import com.example.demo.model.dto.ProjectPreferenceResponseDto;
+import com.example.demo.validation.exception.GroupPreferenceException;
 import com.example.demo.validation.exception.ProjectNotFoundException;
 import com.example.demo.validation.exception.UserNotFoundException;
 
@@ -31,7 +32,9 @@ public interface ProjectPreferenceService {
 	 * @param id the id
 	 * @return the preferences
 	 * @throws ProjectNotFoundException the project not found exception
+	 * @throws UserNotFoundException 
+	 * @throws GroupPreferenceException 
 	 */
-	List<ProjectPreferenceResponseDto> getPreferences(Long id) throws ProjectNotFoundException;
+	List<ProjectPreferenceResponseDto> getPreferences(Long id) throws UserNotFoundException, GroupPreferenceException;
 
 }

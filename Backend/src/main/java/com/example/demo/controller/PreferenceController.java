@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -51,7 +52,7 @@ public class PreferenceController {
 	 * @param preferences the preferences
 	 * @return the response entity
 	 * @throws ProjectNotFoundException the project not found exception
-	 * @throws UserNotFoundException the user not found exception
+	 * @throws UserNotFoundException    the user not found exception
 	 */
 	@PostMapping("/save/project/preference")
 	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
@@ -78,18 +79,22 @@ public class PreferenceController {
 	 *
 	 * @param id the id
 	 * @return the project preferences
-	 * @throws ProjectNotFoundException the project not found exception
+	 * @throws UserNotFoundException
+	 * @throws GroupPreferenceException
 	 */
 	@GetMapping("/get/project/preference/{id}")
 	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<List<ProjectPreferenceResponseDto>> getProjectPreferences(@PathVariable Long id)
-			throws ProjectNotFoundException {
+			throws UserNotFoundException, GroupPreferenceException {
 
 		List<ProjectPreferenceResponseDto> preferenceResponseDtos = new ArrayList<ProjectPreferenceResponseDto>();
 		try {
 			preferenceResponseDtos = projectPreferenceService.getPreferences(id);
-		} catch (ProjectNotFoundException e) {
-			throw new ProjectNotFoundException(e.getMessage());
+		} catch (UserNotFoundException e) {
+			throw new UserNotFoundException(e.getMessage());
+
+		} catch (GroupPreferenceException e) {
+			throw new GroupPreferenceException(e.getMessage());
 		}
 
 		return new ResponseEntity<List<ProjectPreferenceResponseDto>>(preferenceResponseDtos, HttpStatus.ACCEPTED);
@@ -125,7 +130,7 @@ public class PreferenceController {
 	 *
 	 * @param userId the user id
 	 * @return the group preferences by user id
-	 * @throws UserNotFoundException the user not found exception
+	 * @throws UserNotFoundException    the user not found exception
 	 * @throws GroupPreferenceException the group preference exception
 	 */
 	@GetMapping("/get/group/preference/{userId}")
@@ -145,6 +150,17 @@ public class PreferenceController {
 
 		return new ResponseEntity<GroupPreferenceResponseDto>(responseDto, HttpStatus.ACCEPTED);
 
+	}
+
+	@PutMapping("/{userId}/leave")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
+	public ResponseEntity<String> leavePair(@PathVariable("userId") Long userId) {
+		try {
+			groupPreferenceService.leavePair(userId);
+			return ResponseEntity.ok("User successfully left the pair.");
+		} catch (UserNotFoundException e) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+		}
 	}
 
 }

@@ -65,6 +65,7 @@ public class SecurityConfig {
 						.requestMatchers("/form/**").permitAll()
 						.requestMatchers("/preferences/**").permitAll()
 						.requestMatchers("/users/**").permitAll()
+						.requestMatchers("/admin/**").permitAll()
 						.anyRequest().authenticated());
 
 		http.authenticationProvider(authenticationProvider());

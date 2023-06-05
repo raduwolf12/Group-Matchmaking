@@ -30,3 +30,5 @@ services:
    container_name: frontend
    ports:
     - 4200:4200
+   expose:
+    - 4200

@@ -19,5 +19,7 @@ RUN npm run build
 # Expose the necessary port
 EXPOSE 4200
 
+CMD ["ng","serve","--host", "0.0.0.0"]
+
 # Start the Angular application
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
