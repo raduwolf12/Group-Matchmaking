@@ -5,24 +5,22 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import com.example.demo.model.dto.ProjectPreferenceRequestDto;
-import com.example.demo.model.dto.ProjectPreferenceResponseDto;
+import com.example.demo.model.entity.Configuration;
 import com.example.demo.model.entity.PairPreference;
 import com.example.demo.model.entity.Project;
 import com.example.demo.model.entity.ProjectPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.repository.ConfigurationRepository;
 import com.example.demo.repository.GroupPreferenceRepository;
 import com.example.demo.repository.ProjectPreferenceRepository;
 import com.example.demo.repository.ProjectRepository;
 import com.example.demo.repository.UserRepository;
-import com.example.demo.service.ProjectPreferenceService;
-import com.example.demo.validation.exception.ProjectNotFoundException;
-import com.example.demo.validation.exception.UserNotFoundException;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.persistence.EntityManager;
@@ -57,16 +55,30 @@ public class DatabasePopulator {
 	PasswordEncoder encoder;
 
 	@Autowired
-	private ProjectPreferenceService preferenceService;
-
-	@Autowired
 	private ProjectPreferenceRepository projectPreferenceRepository;
+	
+	@Autowired
+	private ConfigurationRepository configurationRepository;
+
+	@Value("${default.pair.size}")
+	private int defaultPairSize;
+
+	@Value("${default.group.size}")
+	private int defaultGroupSize;
 
 	/**
 	 * Populate database.
 	 */
 	@PostConstruct
 	public void populateDatabase() {
+		 if (configurationRepository.count() == 0) {
+	            // Create a new configuration object with default values
+	            Configuration configuration = new Configuration();
+	            configuration.setPairSize(defaultPairSize);
+	            configuration.setGroupSize(defaultGroupSize);
+
+	            configurationRepository.save(configuration);
+	        }
 
 		if (this.userRepository.count() == 0) {
 			List<User> users = new ArrayList<>();
@@ -108,7 +120,7 @@ public class DatabasePopulator {
 //				pairPreferenceRepository.save(pairPreferences);
 //			}
 			List<Project> allProjects = projectRepository.findAll();
-			
+
 			for (int i = 0; i < 5; i++) {
 				User user1 = users.get(i);
 				User user2 = users.get(i + 5);
@@ -129,7 +141,7 @@ public class DatabasePopulator {
 					preference1.setProject(project);
 					preference1.setRank(rank);
 					projectPreferenceRepository.save(preference1);
-					
+
 					rank++;
 				}
 			}
@@ -155,8 +167,7 @@ public class DatabasePopulator {
 					rank++;
 				}
 			}
-			
-			
+
 			User student = new User();
 			student.setName("whx");
 			student.setCanvasUserId(1L);

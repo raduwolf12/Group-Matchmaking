@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.entity.Configuration;
 import com.example.demo.model.entity.FinalGroup;
 import com.example.demo.model.entity.PairPreference;
 import com.example.demo.model.entity.Project;
 import com.example.demo.model.entity.ProjectPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.repository.ConfigurationRepository;
 import com.example.demo.repository.GroupPreferenceRepository;
 import com.example.demo.repository.ProjectPreferenceRepository;
 import com.example.demo.repository.ProjectRepository;
@@ -41,13 +43,18 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	ProjectRepository projectRepository;
 
+	@Autowired
+	ConfigurationRepository configurationRepository;
+
 	@Override
 	public void formGroups() {
 		List<User> students = getStudents();
 		List<Project> projects = projectRepository.findAll();
-
-		int groupSize = 6;
-		int pairSize = 2;
+		
+		Configuration configuration = configurationRepository.findAll().get(0);
+		
+		int groupSize = configuration.getGroupSize();
+		int pairSize = configuration.getPairSize();
 
 		// Separate users into three categories
 		List<User> pairedUsers = new ArrayList<>();
@@ -81,7 +88,7 @@ public class AdminServiceImpl implements AdminService {
 		assignProjectsToPairedUsers(pairedUsersOwnersList, projects, groups);
 
 		assignProjectsToSoloUsers(unpairedUsers, projects, groups);
-		
+
 		assignUnspecifiedUsers(unspecifiedUsers, groups);
 		System.out.println(groups);
 
