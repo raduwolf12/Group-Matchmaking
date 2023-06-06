@@ -1,0 +1,54 @@
+.professor-dashboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  .center-header {
+    align-self: center;
+  }
+  .left-side {
+    margin: 18px;
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    width: 30%;
+    .project-list {
+      flex: 1 1 auto;
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+      .export-btn {
+        justify-self: center;
+        align-self: center;
+      }
+      .project-card {
+        display: flex;
+        align-items: center;
+        margin: 8px;
+        padding: 4px;
+        width: 284px;
+        height: 284px;
+        background-color: rgba(214, 239, 243, 1);
+        .mat-card-actions {
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          margin-top: auto;
+        }
+      }
+    }
+  }
+
+  .student-list {
+    margin: 18px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column wrap;
+    .student-card {
+      display: flex;
+      margin: 8px;
+      padding: 2px;
+      align-items: center;
+      background-color: rgba(230, 234, 220, 1);
+    }
+  }
+}

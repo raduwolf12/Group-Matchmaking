@@ -1,0 +1,15 @@
+.project-form {
+  height: 400px;
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  margin: 12px;
+  .mat-card-actions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+  }
+}

@@ -1,37 +1,62 @@
-<mat-form-field>
-  <mat-label>Student</mat-label>
-  <mat-select [(value)]="selectedStudent">
-    <!-- REPLACE WITH MATERIAL AUTOCOMPLETE -->
-    <input matInput placeholder="Search" (keyup)="onKey($event)" />
-    <mat-option *ngFor="let student of filteredStudents" [value]="student">{{
-      student
-    }}</mat-option>
-  </mat-select>
-</mat-form-field>
-<button mat-button (click)="addStudent()">ADD</button>
-<div *ngFor="let student of selectedStudentList">
-  <mat-card>
-    <h2>{{ student }}</h2>
-    <button mat-fab><mat-icon>remove</mat-icon></button>
-  </mat-card>
-</div>
+<div class="student-page">
+  <form [formGroup]="myForm" class="student-form" *ngIf="!isUserGrouped">
+    <mat-form-field>
+      <mat-label>Student</mat-label>
+      <input
+        type="text"
+        placeholder="Search"
+        aria-label="Student"
+        matInput
+        formControlName="student"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option.studentName"
+          #optionRef
+        >
+          {{ option.studentName }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <button mat-icon-button (click)="addStudent()" color="primary">
+      <mat-icon>add_circle</mat-icon>
+    </button>
 
-<mat-form-field>
-  <mat-label>Project</mat-label>
-  <mat-select [(value)]="selectedProjects" multiple>
-    <!-- <input matInput (keyup)="onKeyProject($event)" /> -->
-    <mat-option *ngFor="let project of projectList" [value]="project">{{
-      project
-    }}</mat-option>
-  </mat-select>
-</mat-form-field>
-<!-- <button mat-button (click)="addProjects()">ADD</button> -->
-<!-- <div *ngFor="let project of projectList">
-  <mat-card> {{ project }}</mat-card>
-</div> -->
+    <div *ngFor="let student of selectedStudentList">
+      <mat-card>
+        <h2>{{ student.studentName }}</h2>
+        <button mat-fab (click)="removeStudent(student.id)">
+          <mat-icon>remove</mat-icon>
+        </button>
+      </mat-card>
+    </div>
+  </form>
 
-<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let project of selectedProjects" cdkDrag>
-    {{ project }}
+  <div *ngIf="isUserGrouped">grupa</div>
+
+  <div class="student-selections">
+    <button
+      mat-icon-button
+      (click)="openProjectInfo()"
+      matTooltip="View projects"
+      color="primary"
+    >
+      <mat-icon>help</mat-icon>
+    </button>
+    <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+      <div
+        class="example-box"
+        *ngFor="let project of projectList; let i = index"
+        cdkDrag
+      >
+        <mat-card class="rank-box">{{ i + 1 }}</mat-card>
+        <div class="project-details">
+          <h1>{{ project }}</h1>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
+<button mat-button (click)="submitSelections()">SUBMIT</button>
