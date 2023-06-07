@@ -2,21 +2,11 @@
   <form [formGroup]="myForm" class="student-form" *ngIf="!isUserGrouped">
     <mat-form-field>
       <mat-label>Student</mat-label>
-      <input
-        type="text"
-        placeholder="Search"
-        aria-label="Student"
-        matInput
-        formControlName="student"
-        [matAutocomplete]="auto"
-      />
+      <input type="text" placeholder="Search" aria-label="Student" matInput formControlName="student"
+        [matAutocomplete]="auto" />
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option
-          *ngFor="let option of filteredOptions | async"
-          [value]="option.studentName"
-          #optionRef
-        >
-          {{ option.studentName }}
+        <mat-option *ngFor="let option of filteredOptions | async" [value]="option.name" #optionRef>
+          {{ option.name }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
@@ -26,8 +16,8 @@
 
     <div *ngFor="let student of selectedStudentList">
       <mat-card>
-        <h2>{{ student.studentName }}</h2>
-        <button mat-fab (click)="removeStudent(student.id)">
+        <h2>{{ student.name }}</h2>
+        <button mat-fab (click)="removeStudent(student.userId)">
           <mat-icon>remove</mat-icon>
         </button>
       </mat-card>
@@ -37,26 +27,17 @@
   <div *ngIf="isUserGrouped">grupa</div>
 
   <div class="student-selections">
-    <button
-      mat-icon-button
-      (click)="openProjectInfo()"
-      matTooltip="View projects"
-      color="primary"
-    >
+    <button mat-icon-button (click)="openProjectInfo()" matTooltip="View projects" color="primary">
       <mat-icon>help</mat-icon>
     </button>
     <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <div
-        class="example-box"
-        *ngFor="let project of projectList; let i = index"
-        cdkDrag
-      >
+      <div class="example-box" *ngFor="let project of projectList; let i = index" cdkDrag>
         <mat-card class="rank-box">{{ i + 1 }}</mat-card>
         <div class="project-details">
-          <h1>{{ project }}</h1>
+          <h1>{{ project.title }}</h1>
         </div>
       </div>
     </div>
   </div>
 </div>
-<button mat-button (click)="submitSelections()">SUBMIT</button>
+<button mat-button (click)="savePreferences()">SUBMIT</button>

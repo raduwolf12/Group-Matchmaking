@@ -24,6 +24,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectDialogInfoComponent } from './dialog/project-dialog-info/project-dialog-info.component';
 import { ProfessorFormComponent } from './professor-form/professor-form.component';
 import { ProjectDialogFormComponent } from './dialog/project-dialog-form/project-dialog-form.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+
+const routes: Routes = [
+  { path: 'login', component: LoginComponent },
+  { path: 'student-form', component: StudentFormComponent },
+  { path: 'teacher-form', component: TeacherFormComponent },
+  { path: 'professor-form', component: ProfessorFormComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full' }
+];
 
 @NgModule({
   declarations: [
@@ -33,6 +45,7 @@ import { ProjectDialogFormComponent } from './dialog/project-dialog-form/project
     ProjectDialogInfoComponent,
     ProfessorFormComponent,
     ProjectDialogFormComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -52,8 +65,10 @@ import { ProjectDialogFormComponent } from './dialog/project-dialog-form/project
     MatDialogModule,
     MatTooltipModule,
     MatExpansionModule,
+    RouterModule.forRoot(routes),
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

@@ -1,4 +1,4 @@
 export class StudentModel {
-  id: number;
-  studentName: string;
+  userId: number;
+  name: string;
 }
