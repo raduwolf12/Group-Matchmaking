@@ -3,28 +3,19 @@
     <h1 class="center-header">PROJECTS</h1>
     <div class="project-list">
       <mat-card *ngFor="let item of projectList" class="project-card">
-        <mat-card-title> pula si spatula </mat-card-title>
-        <mat-card-subtitle> varza si muratura</mat-card-subtitle>
-        <mat-card-content> mata nesatula</mat-card-content>
+        <mat-card-title> {{item.title}} </mat-card-title>
+        <!-- <mat-card-subtitle> varza si muratura</mat-card-subtitle> -->
+        <mat-card-content> {{item.description}}</mat-card-content>
         <mat-card-actions class="mat-card-actions">
           <button mat-icon-button matTooltip="Delete project">
             <mat-icon color="warn"> delete </mat-icon>
           </button>
-          <button
-            mat-icon-button
-            (click)="editProject()"
-            matTooltip="Edit project"
-          >
+          <button mat-icon-button (click)="editProject()" matTooltip="Edit project">
             <mat-icon color="primary"> edit </mat-icon>
           </button>
         </mat-card-actions>
       </mat-card>
-      <button
-        mat-fab
-        class="export-btn"
-        matTooltip="Add project"
-        color="primary"
-      >
+      <button mat-fab class="export-btn" matTooltip="Add project" color="primary">
         <mat-icon>add</mat-icon>
       </button>
     </div>
@@ -33,11 +24,11 @@
     </button>
   </div>
   <div class="student-list">
-    <h1 class="center-header">MATA SI FURCULITA</h1>
+    <h1 class="center-header">Students</h1>
     <div>
-      <mat-card *ngFor="let item of projectList" class="student-card">
-        <mat-card-title> PIZDA SI CALUGARITA </mat-card-title>
-        <mat-card-subtitle> MAMA TA E LUMINITA</mat-card-subtitle>
+      <mat-card *ngFor="let item of studentList" class="student-card">
+        <mat-card-title> {{item.name}} </mat-card-title>
+        <!-- <mat-card-subtitle> {{item.name}}</mat-card-subtitle> -->
       </mat-card>
     </div>
     <button mat-icon-button matTooltip="Import students">
