@@ -1,0 +1,15 @@
+.teacher-dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .view-projects-btn {
+    margin: 12px;
+  }
+  .teacher-form {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+}

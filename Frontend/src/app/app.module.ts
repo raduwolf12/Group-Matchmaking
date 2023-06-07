@@ -12,13 +12,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TeacherFormComponent } from './teacher-form/teacher-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ProjectDialogInfoComponent } from './dialog/project-dialog-info/project-dialog-info.component';
+import { ProfessorFormComponent } from './professor-form/professor-form.component';
+import { ProjectDialogFormComponent } from './dialog/project-dialog-form/project-dialog-form.component';
 
 @NgModule({
-  declarations: [AppComponent, StudentFormComponent, TeacherFormComponent],
+  declarations: [
+    AppComponent,
+    StudentFormComponent,
+    TeacherFormComponent,
+    ProjectDialogInfoComponent,
+    ProfessorFormComponent,
+    ProjectDialogFormComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -32,6 +47,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
+    MatAutocompleteModule,
+    MatSnackBarModule,
+    MatDialogModule,
+    MatTooltipModule,
+    MatExpansionModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
