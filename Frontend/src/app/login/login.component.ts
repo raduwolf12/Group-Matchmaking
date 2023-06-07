@@ -5,18 +5,18 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
   email: string;
   password: string;
   errorMessage: string;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
   login(): void {
     const loginData = {
       email: this.email,
-      password: this.password
+      password: this.password,
     };
 
     const apiUrl = 'http://localhost:8080/auth/login';
@@ -32,7 +32,8 @@ export class LoginComponent {
         }
       },
       (error: any) => {
-        this.errorMessage = error.error.message || 'Login failed. Please try again.';
+        this.errorMessage =
+          error.error.message || 'Login failed. Please try again.';
       }
     );
   }
@@ -40,7 +41,10 @@ export class LoginComponent {
   getUserRole(userId: string): void {
     const apiUrl = `http://localhost:8080/users/get/user/${userId}`;
     const accessToken = sessionStorage.getItem('accessToken');
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${accessToken}`);
+    const headers = new HttpHeaders().set(
+      'Authorization',
+      `Bearer ${accessToken}`
+    );
 
     this.http.get(apiUrl, { headers }).subscribe(
       (response: any) => {
@@ -70,5 +74,4 @@ export class LoginComponent {
       }
     );
   }
-
 }

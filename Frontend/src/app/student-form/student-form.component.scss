@@ -1,5 +1,4 @@
 .student-page {
-  height: 80%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -8,7 +7,7 @@
     display: flex;
     flex-direction: column;
   }
-  .student-selections {
+  .project-selection {
     display: flex;
     flex-direction: column;
   }
@@ -57,9 +56,17 @@
 .project-details {
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-left: 10px;
   flex-grow: 1;
-  height: 100px;
-  // overflow: auto;
+  height: 84px;
+}
+
+.project-title {
+  // font-size: 16px;
+  white-space: normal; /* Allow text to wrap within the container */
+  overflow-wrap: break-word;
+  text-align: center;
 }
 
 .project-details h1 {

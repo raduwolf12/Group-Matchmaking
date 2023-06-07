@@ -1,6 +1,12 @@
 <div class="teacher-dashboard">
-  <button mat-icon-button (click)="openProjectInfo()" matTooltip="View projects" matTooltipPosition="right"
-    color="primary" class="view-projects-btn">
+  <button
+    mat-icon-button
+    (click)="openProjectInfo()"
+    matTooltip="View projects"
+    matTooltipPosition="right"
+    color="primary"
+    class="view-projects-btn"
+  >
     <mat-icon>help</mat-icon>
   </button>
   <form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="teacher-form">
@@ -8,13 +14,13 @@
       <mat-label> Project name</mat-label>
       <input matInput formControlName="projectName" required />
     </mat-form-field>
-    <!-- <mat-form-field>
-      <mat-label> Project owners</mat-label>
-      <textarea matInput formControlName="projectOwners" required></textarea>
-    </mat-form-field> -->
     <mat-form-field>
       <mat-label> Project description</mat-label>
-      <textarea matInput formControlName="projectDescription" required></textarea>
+      <textarea
+        matInput
+        formControlName="projectDescription"
+        required
+      ></textarea>
     </mat-form-field>
     <button mat-raised-button type="submit" [disabled]="!projectForm.valid">
       Submit

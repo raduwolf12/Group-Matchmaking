@@ -28,13 +28,16 @@ import { LoginComponent } from './login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
+import { ProjectServiceService } from './services/project-service.service';
+import { StudentServiceService } from './services/student-service.service';
+import { SettingsServiceService } from './services/settings-service.service';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'student-form', component: StudentFormComponent },
   { path: 'teacher-form', component: TeacherFormComponent },
   { path: 'professor-form', component: ProfessorFormComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -68,7 +71,12 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    ProjectServiceService,
+    StudentServiceService,
+    SettingsServiceService,
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
