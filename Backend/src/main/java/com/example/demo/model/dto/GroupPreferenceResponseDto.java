@@ -6,7 +6,7 @@ import java.util.Set;
  * The Class GroupPreferenceResponseDto.
  */
 public class GroupPreferenceResponseDto {
-	
+
 	/** The group preference id. */
 	Long groupPreferenceId;
 

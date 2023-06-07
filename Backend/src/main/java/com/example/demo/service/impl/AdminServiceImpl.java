@@ -28,31 +28,42 @@ import com.example.demo.service.AdminService;
 import com.example.demo.validation.exception.GroupPreferenceException;
 import com.example.demo.validation.exception.UserNotFoundException;
 
+/**
+ * The Class AdminServiceImpl.
+ */
 @Service
 public class AdminServiceImpl implements AdminService {
 
+	/** The group preference repository. */
 	@Autowired
 	GroupPreferenceRepository groupPreferenceRepository;
 
+	/** The project preference repository. */
 	@Autowired
 	ProjectPreferenceRepository projectPreferenceRepository;
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
 
+	/** The project repository. */
 	@Autowired
 	ProjectRepository projectRepository;
 
+	/** The configuration repository. */
 	@Autowired
 	ConfigurationRepository configurationRepository;
 
+	/**
+	 * Form groups.
+	 */
 	@Override
 	public void formGroups() {
 		List<User> students = getStudents();
 		List<Project> projects = projectRepository.findAll();
-		
+
 		Configuration configuration = configurationRepository.findAll().get(0);
-		
+
 		int groupSize = configuration.getGroupSize();
 		int pairSize = configuration.getPairSize();
 
@@ -94,6 +105,11 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	/**
+	 * Gets the students.
+	 *
+	 * @return the students
+	 */
 	private List<User> getStudents() {
 		List<User> users = userRepository.findAll();
 
@@ -103,6 +119,13 @@ public class AdminServiceImpl implements AdminService {
 		return students;
 	}
 
+	/**
+	 * Gets the highest ranked project.
+	 *
+	 * @param pairPreference the pair preference
+	 * @param projects the projects
+	 * @return the highest ranked project
+	 */
 	private Project getHighestRankedProject(PairPreference pairPreference, List<Project> projects) {
 		Long groupCreatorId = pairPreference.getGroupCreator().getUserId();
 		List<ProjectPreference> projectPreferences = new ArrayList<ProjectPreference>();
@@ -120,6 +143,14 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
+	/**
+	 * Gets the preferences.
+	 *
+	 * @param id the id
+	 * @return the preferences
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
+	 */
 	public List<ProjectPreference> getPreferences(Long id) throws UserNotFoundException, GroupPreferenceException {
 
 		Optional<User> userOptional = userRepository.findById(id);
@@ -136,6 +167,13 @@ public class AdminServiceImpl implements AdminService {
 		return preferences;
 	}
 
+	/**
+	 * Assign projects to paired users.
+	 *
+	 * @param pairedUsers the paired users
+	 * @param projects the projects
+	 * @param groups the groups
+	 */
 	private void assignProjectsToPairedUsers(List<User> pairedUsers, List<Project> projects, List<FinalGroup> groups) {
 
 		for (User user : pairedUsers) {
@@ -163,6 +201,13 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	/**
+	 * Assign projects to solo users.
+	 *
+	 * @param soloUsers the solo users
+	 * @param projects the projects
+	 * @param groups the groups
+	 */
 	private void assignProjectsToSoloUsers(List<User> soloUsers, List<Project> projects, List<FinalGroup> groups) {
 
 		for (User user : soloUsers) {
@@ -195,6 +240,12 @@ public class AdminServiceImpl implements AdminService {
 		}
 	}
 
+	/**
+	 * Assign unspecified users.
+	 *
+	 * @param unspecifiedUsers the unspecified users
+	 * @param groups the groups
+	 */
 	public void assignUnspecifiedUsers(List<User> unspecifiedUsers, List<FinalGroup> groups) {
 		int numOfUsers = unspecifiedUsers.size();
 
@@ -222,6 +273,13 @@ public class AdminServiceImpl implements AdminService {
 
 	}
 
+	/**
+	 * Gets the group id.
+	 *
+	 * @param groups the groups
+	 * @param project the project
+	 * @return the group id
+	 */
 	private int getGroupId(List<FinalGroup> groups, Project project) {
 		for (int i = 0; i < groups.size(); i++) {
 			if (groups.get(i).getProject().equals(project)) {
@@ -231,6 +289,13 @@ public class AdminServiceImpl implements AdminService {
 		return -1;
 	}
 
+	/**
+	 * Calculate solo slots.
+	 *
+	 * @param teamSize the team size
+	 * @param pairSize the pair size
+	 * @return the int
+	 */
 	private int calculateSoloSlots(int teamSize, int pairSize) {
 		int soloSlots = teamSize % pairSize;
 		if (soloSlots == 0)
@@ -238,6 +303,13 @@ public class AdminServiceImpl implements AdminService {
 		return soloSlots;
 	}
 
+	/**
+	 * Calculate pair slots.
+	 *
+	 * @param teamSize the team size
+	 * @param pairSize the pair size
+	 * @return the int
+	 */
 	private int calculatePairSlots(int teamSize, int pairSize) {
 		int size = teamSize / pairSize;
 		int soloSlots = teamSize % pairSize;
@@ -246,14 +318,37 @@ public class AdminServiceImpl implements AdminService {
 		return size;
 	}
 
+	/**
+	 * Check project availability.
+	 *
+	 * @param group the group
+	 * @param teamSize the team size
+	 * @param project the project
+	 * @return true, if successful
+	 */
 	private boolean checkProjectAvailability(FinalGroup group, int teamSize, Project project) {
 		return numberOfEmptySlots(group, teamSize) > 0;
 	}
 
+	/**
+	 * Number of empty slots.
+	 *
+	 * @param group the group
+	 * @param teamSize the team size
+	 * @return the int
+	 */
 	private int numberOfEmptySlots(FinalGroup group, int teamSize) {
 		return teamSize - group.getMembers().size();
 	}
 
+	/**
+	 * Creates the empty groups.
+	 *
+	 * @param list the list
+	 * @param groupSize the group size
+	 * @param pairSize the pair size
+	 * @return the list
+	 */
 	private List<FinalGroup> createEmptyGroups(List<Project> list, int groupSize, int pairSize) {
 		List<FinalGroup> groups = new ArrayList<FinalGroup>();
 		for (Project project : list) {

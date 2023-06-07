@@ -49,7 +49,7 @@ public class FormController {
 	 * @return the response entity
 	 */
 	@PostMapping("/open")
-	@PreAuthorize ("hasAuthority ('PROFESSOR')")
+	@PreAuthorize("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<String> openForm(@RequestParam("duration") int duration) {
 
 		formService.createForm(duration);
@@ -79,7 +79,7 @@ public class FormController {
 	 * @return the response entity
 	 */
 	@GetMapping("/close")
-	@PreAuthorize ("hasAuthority ('PROFESSOR')")
+	@PreAuthorize("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<String> closeForm() {
 
 		formService.closeFormManualy();

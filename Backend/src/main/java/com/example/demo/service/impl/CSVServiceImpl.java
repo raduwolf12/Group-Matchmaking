@@ -26,6 +26,7 @@ public class CSVServiceImpl implements CSVService {
 	@Autowired
 	UserRepository repository;
 	
+	/** The encoder. */
 	@Autowired
 	PasswordEncoder encoder;
 	

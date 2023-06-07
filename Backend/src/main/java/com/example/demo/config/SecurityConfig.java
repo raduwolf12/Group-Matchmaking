@@ -18,21 +18,36 @@ import com.example.demo.service.impl.UserDetailsServiceImpl;
 import com.example.demo.utils.AuthEntryPointJwt;
 import com.example.demo.utils.AuthTokenFilter;
 
+/**
+ * The Class SecurityConfig.
+ */
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
 
+	/** The user details service. */
 	@Autowired
 	UserDetailsServiceImpl userDetailsService;
 
+	/** The unauthorized handler. */
 	@Autowired
 	private AuthEntryPointJwt unauthorizedHandler;
 
+	/**
+	 * Authentication jwt token filter.
+	 *
+	 * @return the auth token filter
+	 */
 	@Bean
 	public AuthTokenFilter authenticationJwtTokenFilter() {
 		return new AuthTokenFilter();
 	}
 
+	/**
+	 * Authentication provider.
+	 *
+	 * @return the dao authentication provider
+	 */
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
 		DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
@@ -43,30 +58,45 @@ public class SecurityConfig {
 		return authProvider;
 	}
 
+	/**
+	 * Authentication manager.
+	 *
+	 * @param authConfig the auth config
+	 * @return the authentication manager
+	 * @throws Exception the exception
+	 */
 	@Bean
 	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
 		return authConfig.getAuthenticationManager();
 	}
 
+	/**
+	 * Password encoder.
+	 *
+	 * @return the password encoder
+	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * Filter chain.
+	 *
+	 * @param http the http
+	 * @return the security filter chain
+	 * @throws Exception the exception
+	 */
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf(csrf -> csrf.disable())
 				.exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.authorizeHttpRequests(auth -> auth
-						.requestMatchers("/auth/**").permitAll()
-						.requestMatchers("/projects/**").permitAll()
-						.requestMatchers("/api/**").permitAll()
-						.requestMatchers("/form/**").permitAll()
-						.requestMatchers("/preferences/**").permitAll()
-						.requestMatchers("/users/**").permitAll()
-						.requestMatchers("/admin/**").permitAll()
-						.anyRequest().authenticated());
+				.authorizeHttpRequests(
+						auth -> auth.requestMatchers("/auth/**").permitAll().requestMatchers("/projects/**").permitAll()
+								.requestMatchers("/api/**").permitAll().requestMatchers("/form/**").permitAll()
+								.requestMatchers("/preferences/**").permitAll().requestMatchers("/users/**").permitAll()
+								.requestMatchers("/admin/**").permitAll().anyRequest().authenticated());
 
 		http.authenticationProvider(authenticationProvider());
 

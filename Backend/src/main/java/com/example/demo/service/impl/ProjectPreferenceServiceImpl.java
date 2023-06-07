@@ -43,6 +43,7 @@ public class ProjectPreferenceServiceImpl implements ProjectPreferenceService {
 	@Autowired
 	ProjectRepository projectRepository;
 
+	/** The group preference repository. */
 	@Autowired
 	GroupPreferenceRepository groupPreferenceRepository;
 
@@ -94,9 +95,8 @@ public class ProjectPreferenceServiceImpl implements ProjectPreferenceService {
 	 *
 	 * @param id the id
 	 * @return the preferences
-	 * @throws ProjectNotFoundException the project not found exception
-	 * @throws UserNotFoundException
-	 * @throws GroupPreferenceException
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
 	 */
 	@Override
 	public List<ProjectPreferenceResponseDto> getPreferences(Long id)

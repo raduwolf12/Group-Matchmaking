@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,17 +22,6 @@ import jakarta.servlet.http.HttpServletResponse;
 @RestController
 @RequestMapping("/canva-api")
 public class ApiController {
-
-	/**
-	 * Say hello.
-	 *
-	 * @return the string
-	 */
-	@GetMapping("/hello-world")
-	@ResponseBody
-	public String sayHello() {
-		return "HI";
-	}
 
 	/**
 	 * Canvas login.
@@ -51,8 +39,8 @@ public class ApiController {
 	/**
 	 * Canvas response.
 	 *
-	 * @param code the code
-	 * @param state the state
+	 * @param code     the code
+	 * @param state    the state
 	 * @param response the response
 	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
@@ -105,7 +93,7 @@ public class ApiController {
 	 * Gets the students.
 	 *
 	 * @param accessToken the access token
-	 * @param courseId the course id
+	 * @param courseId    the course id
 	 * @return the students
 	 */
 	@GetMapping("/courses/{courseId}/students")
@@ -118,73 +106,13 @@ public class ApiController {
 		return response.getBody();
 	}
 
-//	@PostMapping("/courses/{courseId}/groups/{access_token}")
-//	public ResponseEntity<String> createGroupForStudent(@PathVariable("courseId") String courseId,
-//			@PathVariable("access_token") String accessToken,
-//	                                                     @RequestBody GroupRequest groupRequest) {
-//	    HttpHeaders headers = createAuthorizationHeader(accessToken);
-//	    headers.setContentType(MediaType.APPLICATION_JSON);
-//
-//	    HttpEntity<GroupRequest> request = new HttpEntity<>(groupRequest, headers);
-//
-//	    String url = String.format("https://absalon.ku.dk/api/v1/courses/%s/groups", courseId);
-//	    ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
-//
-//	    return response;
-//	}
-
-//	public static class GroupRequest {
-//	    private String name;
-//	    private String description;
-//	    private boolean is_public;
-//	    private String join_level;
-//	    private int max_membership;
-//	    private int[] members;
-//		public String getName() {
-//			return name;
-//		}
-//		public void setName(String name) {
-//			this.name = name;
-//		}
-//		public String getDescription() {
-//			return description;
-//		}
-//		public void setDescription(String description) {
-//			this.description = description;
-//		}
-//		public boolean isIs_public() {
-//			return is_public;
-//		}
-//		public void setIs_public(boolean is_public) {
-//			this.is_public = is_public;
-//		}
-//		public String getJoin_level() {
-//			return join_level;
-//		}
-//		public void setJoin_level(String join_level) {
-//			this.join_level = join_level;
-//		}
-//		public int getMax_membership() {
-//			return max_membership;
-//		}
-//		public void setMax_membership(int max_membership) {
-//			this.max_membership = max_membership;
-//		}
-//		public int[] getMembers() {
-//			return members;
-//		}
-//		public void setMembers(int[] members) {
-//			this.members = members;
-//		}
-//	}
-
 	/**
- * Creates the authorization header.
- *
- * @param accessToken the access token
- * @return the http headers
- */
-public static HttpHeaders createAuthorizationHeader(String accessToken) {
+	 * Creates the authorization header.
+	 *
+	 * @param accessToken the access token
+	 * @return the http headers
+	 */
+	public static HttpHeaders createAuthorizationHeader(String accessToken) {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setBearerAuth(accessToken);
 		return headers;

@@ -6,6 +6,7 @@ import com.example.demo.validation.validators.ValueOfEnum;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserDto.
  * 
@@ -33,18 +34,49 @@ public class UserRequestDto {
 	/** The preference id. */
 	Long preferenceId;
 
+	/** The is user paired. */
+	Boolean isUserPaired;
+
 	/** The role. */
 	@NotNull
 	@ValueOfEnum(anyOf = { Role.PROFESSOR, Role.STUDENT, Role.TEACHER })
 	Role role;
-	
+
+	/** The email. */
 	private String email;
 
+	/**
+	 * Gets the checks if is user paired.
+	 *
+	 * @return the checks if is user paired
+	 */
+	public Boolean getIsUserPaired() {
+		return isUserPaired;
+	}
 
+	/**
+	 * Sets the checks if is user paired.
+	 *
+	 * @param isUserPaired the new checks if is user paired
+	 */
+	public void setIsUserPaired(Boolean isUserPaired) {
+		this.isUserPaired = isUserPaired;
+	}
+
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email.
+	 *
+	 * @param email the new email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

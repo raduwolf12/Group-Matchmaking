@@ -140,16 +140,21 @@ public class UserServiceImpl implements UserService {
 		userRepository.delete(user);
 	}
 
+	/**
+	 * Gets the all students.
+	 *
+	 * @return the all students
+	 */
 	@Override
 	public List<UserResponseDto> getAllStudents() {
 		List<User> users = userRepository.findAll();
 		List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
 		for (User user : users) {
 			if (user.getRole() == Role.STUDENT) {
-	            UserResponseDto studentResponseDto = new UserResponseDto();
-	            BeanUtils.copyProperties(user, studentResponseDto);
-	            userResponseDtos.add(studentResponseDto);
-	        }
+				UserResponseDto studentResponseDto = new UserResponseDto();
+				BeanUtils.copyProperties(user, studentResponseDto);
+				userResponseDtos.add(studentResponseDto);
+			}
 		}
 		return userResponseDtos;
 	}

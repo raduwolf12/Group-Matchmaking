@@ -13,7 +13,7 @@ import com.example.demo.model.entity.ProjectPreference;
  */
 @Repository
 public interface ProjectPreferenceRepository extends JpaRepository<ProjectPreference, Long> {
-	
+
 	/**
 	 * Gets the preferences by user id.
 	 *

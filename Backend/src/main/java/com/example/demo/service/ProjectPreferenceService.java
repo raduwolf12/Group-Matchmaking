@@ -20,7 +20,7 @@ public interface ProjectPreferenceService {
 	 *
 	 * @param preferences the preferences
 	 * @return the list
-	 * @throws UserNotFoundException the user not found exception
+	 * @throws UserNotFoundException    the user not found exception
 	 * @throws ProjectNotFoundException the project not found exception
 	 */
 	List<ProjectPreferenceResponseDto> setPreferences(@Valid List<ProjectPreferenceRequestDto> preferences)
@@ -31,9 +31,8 @@ public interface ProjectPreferenceService {
 	 *
 	 * @param id the id
 	 * @return the preferences
-	 * @throws ProjectNotFoundException the project not found exception
-	 * @throws UserNotFoundException 
-	 * @throws GroupPreferenceException 
+	 * @throws UserNotFoundException the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
 	 */
 	List<ProjectPreferenceResponseDto> getPreferences(Long id) throws UserNotFoundException, GroupPreferenceException;
 

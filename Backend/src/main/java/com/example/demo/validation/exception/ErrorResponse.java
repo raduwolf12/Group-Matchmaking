@@ -6,13 +6,13 @@ import java.time.LocalDateTime;
  * The Class ErrorResponse.
  */
 public class ErrorResponse {
-	
+
 	/** The message. */
 	private String message;
-	
+
 	/** The statuscode. */
 	private int statuscode;
-	
+
 	/** The date time. */
 	private LocalDateTime dateTime;
 

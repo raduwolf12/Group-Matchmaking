@@ -56,7 +56,7 @@ public class DatabasePopulator {
 
 	@Autowired
 	private ProjectPreferenceRepository projectPreferenceRepository;
-	
+
 	@Autowired
 	private ConfigurationRepository configurationRepository;
 
@@ -71,14 +71,14 @@ public class DatabasePopulator {
 	 */
 	@PostConstruct
 	public void populateDatabase() {
-		 if (configurationRepository.count() == 0) {
-	            // Create a new configuration object with default values
-	            Configuration configuration = new Configuration();
-	            configuration.setPairSize(defaultPairSize);
-	            configuration.setGroupSize(defaultGroupSize);
+		if (configurationRepository.count() == 0) {
+			// Create a new configuration object with default values
+			Configuration configuration = new Configuration();
+			configuration.setPairSize(defaultPairSize);
+			configuration.setGroupSize(defaultGroupSize);
 
-	            configurationRepository.save(configuration);
-	        }
+			configurationRepository.save(configuration);
+		}
 
 		if (this.userRepository.count() == 0) {
 			List<User> users = new ArrayList<>();

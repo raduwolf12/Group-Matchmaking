@@ -45,12 +45,16 @@ public class FormServiceImpl implements FormService {
 		List<Form> formsToClose = formRepository.findOpenFormsBeforeTime(now.minusDays(1));
 
 		for (Form form : formsToClose) {
-			if (form.getOpeningTime().plusDays(form.getDurationInDays()).isAfter(now)) continue;
+			if (form.getOpeningTime().plusDays(form.getDurationInDays()).isAfter(now))
+				continue;
 			form.setOpen(false);
 			formRepository.save(form);
 		}
 	}
 
+	/**
+	 * Close form manualy.
+	 */
 	@Override
 	public void closeFormManualy() {
 		Form form = formRepository.findAll().get(0);

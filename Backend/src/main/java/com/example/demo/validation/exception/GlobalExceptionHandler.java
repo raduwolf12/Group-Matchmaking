@@ -20,6 +20,7 @@ import jakarta.validation.ConstraintViolationException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+	/** The logger. */
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	/**
@@ -102,6 +103,12 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.BAD_REQUEST);
 	}
 
+	/**
+	 * Handle exception.
+	 *
+	 * @param ex the ex
+	 * @return the response entity
+	 */
 	@ExceptionHandler(GroupPreferenceException.class)
 	public ResponseEntity<ErrorResponse> handleException(GroupPreferenceException ex) {
 

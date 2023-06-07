@@ -17,7 +17,7 @@ public interface GroupPreferenceRepository extends JpaRepository<PairPreference,
 	/**
 	 * Find by user.
 	 *
-	 * @param user the user
+	 * @param userId the user id
 	 * @return the optional
 	 */
 

@@ -15,37 +15,66 @@ import com.example.demo.model.entity.Configuration;
 import com.example.demo.repository.ConfigurationRepository;
 import com.example.demo.service.AdminService;
 
+/**
+ * The Class AdminController.
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+
+	/** The admin service. */
 	@Autowired
 	AdminService adminService;
 
+	/** The configuration repository. */
 	@Autowired
 	private ConfigurationRepository configurationRepository;
 
+	/**
+	 * Update settings.
+	 *
+	 * @param pairSize  the pair size
+	 * @param groupSize the group size
+	 * @return the response entity
+	 */
 	@PostMapping("/settings")
 	public ResponseEntity<String> updateSettings(@RequestParam int pairSize, @RequestParam int groupSize) {
 
-	    Configuration configuration = new Configuration();
-	    configuration.setPairSize(pairSize);
-	    configuration.setGroupSize(groupSize);
+		Configuration configuration = configurationRepository.findById(1L).get();
+		configuration.setPairSize(pairSize);
+		configuration.setGroupSize(groupSize);
 
+		configurationRepository.save(configuration);
 
-	    configurationRepository.save(configuration);
-
-	    return ResponseEntity.ok("Settings updated successfully");
+		return ResponseEntity.ok("Settings updated successfully");
 	}
+
+	/**
+	 * Gets the pair size.
+	 *
+	 * @return the pair size
+	 */
 	@GetMapping("/settings/pairSize")
 	public ResponseEntity<Integer> getPairSize() {
-	    return ResponseEntity.ok(configurationRepository.findById(1L).get().getPairSize());
-	}
-	@GetMapping("/settings/groupSize")
-	public ResponseEntity<Integer> getGroupSize() {
-	    return ResponseEntity.ok(configurationRepository.findById(1L).get().getGroupSize());
+		return ResponseEntity.ok(configurationRepository.findById(1L).get().getPairSize());
 	}
 
+	/**
+	 * Gets the group size.
+	 *
+	 * @return the group size
+	 */
+	@GetMapping("/settings/groupSize")
+	public ResponseEntity<Integer> getGroupSize() {
+		return ResponseEntity.ok(configurationRepository.findById(1L).get().getGroupSize());
+	}
+
+	/**
+	 * Form groups.
+	 *
+	 * @return the response entity
+	 */
 	@PostMapping("/start")
 	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<String> formGroups() {

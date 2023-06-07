@@ -2,6 +2,7 @@ package com.example.demo.model.dto;
 
 import com.example.demo.model.entity.enums.Role;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class UserResponseDto.
  */
@@ -23,23 +24,66 @@ public class UserResponseDto {
 
 	/** The role. */
 	private Role role;
-	
+
+	/** The password. */
 	private String password;
-	
+
+	/** The email. */
 	private String email;
 
+	/** The is user paired. */
+	private Boolean isUserPaired;
+
+	/**
+	 * Gets the checks if is user paired.
+	 *
+	 * @return the checks if is user paired
+	 */
+	public Boolean getIsUserPaired() {
+		return isUserPaired;
+	}
+
+	/**
+	 * Sets the checks if is user paired.
+	 *
+	 * @param isUserPaired the new checks if is user paired
+	 */
+	public void setIsUserPaired(Boolean isUserPaired) {
+		this.isUserPaired = isUserPaired;
+	}
+
+	/**
+	 * Gets the password.
+	 *
+	 * @return the password
+	 */
 	public String getPassword() {
 		return password;
 	}
 
+	/**
+	 * Sets the password.
+	 *
+	 * @param password the new password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
+	/**
+	 * Gets the email.
+	 *
+	 * @return the email
+	 */
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * Sets the email.
+	 *
+	 * @param email the new email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}

@@ -19,7 +19,7 @@ public interface ProjectService {
 	 *
 	 * @param id the id
 	 * @return the project
-	 * @throws ProjectNotFoundException 
+	 * @throws ProjectNotFoundException the project not found exception
 	 */
 	ProjectResponseDto getProject(Long id) throws ProjectNotFoundException;
 
@@ -34,7 +34,7 @@ public interface ProjectService {
 	 * Delete project by id.
 	 *
 	 * @param id the id
-	 * @throws ProjectNotFoundException 
+	 * @throws ProjectNotFoundException the project not found exception
 	 */
 	void deleteProjectById(Long id) throws ProjectNotFoundException;
 
@@ -42,9 +42,8 @@ public interface ProjectService {
 	 * Creates the project.
 	 *
 	 * @param projectRequestDto the project request dto
-	 * @param userId 
 	 * @return the project response dto
-	 * @throws UserNotFoundException 
+	 * @throws UserNotFoundException the user not found exception
 	 */
 	ProjectResponseDto createProject(@Valid ProjectRequestDto projectRequestDto) throws UserNotFoundException;
 
@@ -53,8 +52,17 @@ public interface ProjectService {
 	 *
 	 * @param projectRequestDto the project request dto
 	 * @return the project response dto
-	 * @throws ProjectNotFoundException 
+	 * @throws ProjectNotFoundException the project not found exception
 	 */
 	ProjectResponseDto updateProject(@Valid ProjectRequestDto projectRequestDto) throws ProjectNotFoundException;
+
+	/**
+	 * Gets the projects by user id.
+	 *
+	 * @param userId the user id
+	 * @return the projects by user id
+	 * @throws UserNotFoundException the user not found exception
+	 */
+	List<ProjectResponseDto> getProjectsByUserId(Long userId) throws UserNotFoundException;
 
 }

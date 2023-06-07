@@ -24,14 +24,12 @@ public class PairPreference {
 	@Id
 	Long groupPreferenceId;
 
+	/** The users. */
 	@ManyToMany()
-	@JoinTable(
-            name = "pair_preferences_users",
-            joinColumns = @JoinColumn(name = "pair_preferences_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
+	@JoinTable(name = "pair_preferences_users", joinColumns = @JoinColumn(name = "pair_preferences_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	private List<User> users;
 
+	/** The group creator. */
 	@OneToOne
 	@JoinColumn(name = "group_creator_id")
 	private User groupCreator;
@@ -54,21 +52,40 @@ public class PairPreference {
 		this.groupPreferenceId = groupPreferenceId;
 	}
 
+	/**
+	 * Gets the users.
+	 *
+	 * @return the users
+	 */
 	public List<User> getUsers() {
 		return users;
 	}
 
+	/**
+	 * Sets the users.
+	 *
+	 * @param users the new users
+	 */
 	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 
+	/**
+	 * Gets the group creator.
+	 *
+	 * @return the group creator
+	 */
 	public User getGroupCreator() {
 		return groupCreator;
 	}
 
+	/**
+	 * Sets the group creator.
+	 *
+	 * @param groupCreator the new group creator
+	 */
 	public void setGroupCreator(User groupCreator) {
 		this.groupCreator = groupCreator;
 	}
-
 
 }

@@ -17,7 +17,7 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "project_preferences")
 public class ProjectPreference {
-	
+
 	/** The project preference id. */
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
