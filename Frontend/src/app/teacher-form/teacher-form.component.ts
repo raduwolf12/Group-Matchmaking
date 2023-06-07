@@ -1,43 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectDialogInfoComponent } from '../dialog/project-dialog-info/project-dialog-info.component';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Project } from '../model/project-model';
+import { ProjectServiceService } from '../services/project-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-teacher-form',
   templateUrl: './teacher-form.component.html',
   styleUrls: ['./teacher-form.component.scss'],
 })
-export class TeacherFormComponent {
-  projectForm = this.fb.group({
-    projectName: ['', Validators.required],
-    projectDescription: ['', Validators.required],
-  });
+export class TeacherFormComponent implements OnInit, OnDestroy {
+  projectForm: FormGroup;
   accessToken: string | null = null;
-  sessionUserId: string
+  sessionUserId: string;
+
+  saveProjectSub: Subscription;
+  getProjectSub: Subscription;
 
   projectList: Project[] = [];
 
   constructor(
-    private http: HttpClient,
     private fb: FormBuilder,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    private projectService: ProjectServiceService
+  ) {
+    this.sessionUserId = sessionStorage.getItem('userId');
+    this.projectForm = this.fb.group({
+      projectName: ['', Validators.required],
+      projectDescription: ['', Validators.required],
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.saveProjectSub.unsubscribe();
+    this.getProjectSub.unsubscribe();
+  }
 
   ngOnInit() {
-    this.accessToken = sessionStorage.getItem('accessToken');
-    this.sessionUserId = sessionStorage.getItem('userId');
-
-    // Check if the accessToken exists
-    if (this.accessToken) {
-      // Use the accessToken for authenticated API calls or other purposes
-      console.log('Access Token:', this.accessToken);
-    } else {
-      // Handle the case when the accessToken is not found
-      console.log('Access Token not found');
-    }
-    // Fetch projects from backend
     this.fetchProjects();
   }
 
@@ -45,47 +46,30 @@ export class TeacherFormComponent {
     if (this.projectForm.valid) {
       const title = this.projectForm.value.projectName;
       const description = this.projectForm.value.projectDescription;
-
-      const projectData = {
+      const projectData: Project = {
         projectId: null,
         title: title,
         description: description,
-        owner_user_id: this.sessionUserId, // Set the owner_user_id value as needed
+        owner_user_id: parseInt(this.sessionUserId), // Set the owner_user_id value as needed
         size: 8, // Set the size value as needed
         visibility: true, // Set the visibility value as needed
       };
-
-      const headers = new HttpHeaders().set(
-        'Authorization',
-        'Bearer ' + this.accessToken // Replace this.accessToken with the actual access token
-      );
-
-      this.http.post('http://localhost:8080/projects/save/project', projectData, { headers })
-        .subscribe(
-          (response) => {
-            console.log('Project saved successfully');
-          },
-          (error) => {
-            console.log('Error saving project:', error);
-          }
-        );
+      this.saveProject(projectData);
     }
   }
 
-  fetchProjects(): void {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + this.accessToken
-    );
-    this.http
-      .get<Project[]>('http://localhost:8080/projects/get/projects', {
-        headers,
-      })
-      .subscribe(
-        (projects) => {
-          this.projectList = projects;
-        }
-      );
+  saveProject(projectData: Project) {
+    this.saveProjectSub = this.projectService
+      .saveProject(projectData)
+      .subscribe();
+  }
+
+  fetchProjects() {
+    this.getProjectSub = this.projectService
+      .getProjects()
+      .subscribe((projects) => {
+        this.projectList = projects;
+      });
   }
 
   openProjectInfo() {
