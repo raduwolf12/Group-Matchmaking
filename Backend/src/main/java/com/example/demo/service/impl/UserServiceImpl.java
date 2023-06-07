@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.demo.model.dto.UserRequestDto;
 import com.example.demo.model.dto.UserResponseDto;
 import com.example.demo.model.entity.User;
+import com.example.demo.model.entity.enums.Role;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import com.example.demo.validation.exception.UserNotFoundException;
@@ -137,6 +138,20 @@ public class UserServiceImpl implements UserService {
 		User user = optional.get();
 
 		userRepository.delete(user);
+	}
+
+	@Override
+	public List<UserResponseDto> getAllStudents() {
+		List<User> users = userRepository.findAll();
+		List<UserResponseDto> userResponseDtos = new ArrayList<UserResponseDto>();
+		for (User user : users) {
+			if (user.getRole() == Role.STUDENT) {
+	            UserResponseDto studentResponseDto = new UserResponseDto();
+	            BeanUtils.copyProperties(user, studentResponseDto);
+	            userResponseDtos.add(studentResponseDto);
+	        }
+		}
+		return userResponseDtos;
 	}
 
 }

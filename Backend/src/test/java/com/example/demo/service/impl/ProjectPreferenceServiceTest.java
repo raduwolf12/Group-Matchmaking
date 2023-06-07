@@ -16,45 +16,51 @@ import com.example.demo.model.entity.ProjectPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.repository.ProjectPreferenceRepository;
 import com.example.demo.repository.ProjectRepository;
-import com.example.demo.repository.UserRepository;
 import com.example.demo.service.ProjectPreferenceService;
-import com.example.demo.service.ProjectService;
+import com.example.demo.validation.exception.GroupPreferenceException;
 import com.example.demo.validation.exception.ProjectNotFoundException;
+import com.example.demo.validation.exception.UserNotFoundException;
 
 @SpringBootTest
 public class ProjectPreferenceServiceTest {
-    @Autowired
-    private ProjectPreferenceService projectPreferenceService;
+	@Autowired
+	private ProjectPreferenceService projectPreferenceService;
 
-    @MockBean
-    private ProjectRepository projectRepository;
+	@MockBean
+	private ProjectRepository projectRepository;
 
-    @MockBean
-    private ProjectPreferenceRepository preferenceRepository;
-    
-    @Test
-    public void createProjectPreferenceTest() {
-        // TODO : implement this test (seems pretty hard to do)
-    }
+	@MockBean
+	private ProjectPreferenceRepository preferenceRepository;
 
-    @Test
-    public void getPreferenceTest() throws ProjectNotFoundException {
-        Project test = new Project();
-        test.setProjectId(1L);
-        
-        when(projectRepository.findById(1L)).thenReturn(Optional.of(test));
+	@Test
+	public void createProjectPreferenceTest() {
+		// TODO : implement this test (seems pretty hard to do)
+	}
 
-        User testUser = new User();
-        testUser.setCanvasUserId(1L);
+	@Test
+	public void getPreferenceTest() throws ProjectNotFoundException {
+		Project test = new Project();
+		test.setProjectId(1L);
 
-        ProjectPreference testPref = new ProjectPreference();
-        testPref.setUser(testUser);
-        testPref.setProject(test);
+		when(projectRepository.findById(1L)).thenReturn(Optional.of(test));
 
-        when(preferenceRepository.getPreferencesByUserId(1L)).thenReturn(List.of(testPref));
+		User testUser = new User();
+		testUser.setCanvasUserId(1L);
 
-        List<ProjectPreferenceResponseDto> pref = projectPreferenceService.getPreferences(1L);
-        assert(pref.size() == 1);
-        // TODO : might be possible to test more here
-    }
+		ProjectPreference testPref = new ProjectPreference();
+		testPref.setUser(testUser);
+		testPref.setProject(test);
+
+		when(preferenceRepository.getPreferencesByUserId(1L)).thenReturn(List.of(testPref));
+
+		List<ProjectPreferenceResponseDto> pref = null;
+		try {
+			pref = projectPreferenceService.getPreferences(1L);
+		} catch (UserNotFoundException | GroupPreferenceException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assert (pref.size() == 1);
+		// TODO : might be possible to test more here
+	}
 }

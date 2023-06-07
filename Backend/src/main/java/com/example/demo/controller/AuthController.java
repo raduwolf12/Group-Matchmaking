@@ -54,7 +54,7 @@ public class AuthController {
 
 			UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-			return ResponseEntity.ok(new AuthResponse(userDetails.getEmail(), jwt));
+			return ResponseEntity.ok(new AuthResponse(userDetails.getEmail(),userDetails.getId(), jwt));
 		} catch (BadCredentialsException ex) {
 			return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
 		}

@@ -92,7 +92,24 @@ public class UserController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	@GetMapping("/get/students")
+	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
+	public ResponseEntity<List<UserResponseDto>> getAllStudents() {
+		try {
+			List<UserResponseDto> users = userService.getAllStudents();
 
+			if (users.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(users, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
+	
 	/**
 	 * Gets the user by id.
 	 *

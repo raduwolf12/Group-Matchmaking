@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,6 +36,14 @@ public class AdminController {
 	    configurationRepository.save(configuration);
 
 	    return ResponseEntity.ok("Settings updated successfully");
+	}
+	@GetMapping("/settings/pairSize")
+	public ResponseEntity<Integer> getPairSize() {
+	    return ResponseEntity.ok(configurationRepository.findById(1L).get().getPairSize());
+	}
+	@GetMapping("/settings/groupSize")
+	public ResponseEntity<Integer> getGroupSize() {
+	    return ResponseEntity.ok(configurationRepository.findById(1L).get().getGroupSize());
 	}
 
 	@PostMapping("/start")
