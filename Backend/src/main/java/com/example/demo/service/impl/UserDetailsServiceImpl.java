@@ -11,20 +11,30 @@ import com.example.demo.config.UserDetailsImpl;
 import com.example.demo.model.entity.User;
 import com.example.demo.repository.UserRepository;
 
-
-
+/**
+ * The Class UserDetailsServiceImpl.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
-  @Autowired
-  UserRepository userRepository;
+	
+	/** The user repository. */
+	@Autowired
+	UserRepository userRepository;
 
-  @Override
-  @Transactional
-  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-    User user = userRepository.findByEmail(email)
-        .orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
+	/**
+	 * Load user by username.
+	 *
+	 * @param email the email
+	 * @return the user details
+	 * @throws UsernameNotFoundException the username not found exception
+	 */
+	@Override
+	@Transactional
+	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+		User user = userRepository.findByEmail(email)
+				.orElseThrow(() -> new UsernameNotFoundException("User Not Found with email: " + email));
 
-    return UserDetailsImpl.build(user);
-  }
+		return UserDetailsImpl.build(user);
+	}
 
 }

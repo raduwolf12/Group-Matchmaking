@@ -2,6 +2,7 @@ package com.example.demo.model.entity;
 
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -46,7 +47,7 @@ public class Project {
 	private Boolean visibility;
 
 	/** The project preferences. */
-	@OneToMany(mappedBy = "project")
+	@OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
 	private Set<ProjectPreference> projectPreferences;
 
 	/**

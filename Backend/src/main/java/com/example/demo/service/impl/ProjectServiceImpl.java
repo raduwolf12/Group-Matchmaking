@@ -20,14 +20,27 @@ import com.example.demo.validation.exception.UserNotFoundException;
 
 import jakarta.validation.Valid;
 
+/**
+ * The Class ProjectServiceImpl.
+ */
 @Service
 public class ProjectServiceImpl implements ProjectService {
+	
+	/** The project repository. */
 	@Autowired
 	ProjectRepository projectRepository;
 
+	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
 
+	/**
+	 * Gets the project.
+	 *
+	 * @param id the id
+	 * @return the project
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@Override
 	public ProjectResponseDto getProject(Long id) throws ProjectNotFoundException {
 		Optional<Project> optional = projectRepository.findById(id);
@@ -43,6 +56,11 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectResponseDto;
 	}
 
+	/**
+	 * Gets the all projects.
+	 *
+	 * @return the all projects
+	 */
 	@Override
 	public List<ProjectResponseDto> getAllProjects() {
 		List<Project> projects = projectRepository.findAll();
@@ -55,6 +73,12 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectResponseDtos;
 	}
 
+	/**
+	 * Delete project by id.
+	 *
+	 * @param id the id
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@Override
 	public void deleteProjectById(Long id) throws ProjectNotFoundException {
 		Optional<Project> optional = projectRepository.findById(id);
@@ -67,6 +91,13 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.delete(project);
 	}
 
+	/**
+	 * Creates the project.
+	 *
+	 * @param projectRequestDto the project request dto
+	 * @return the project response dto
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@Override
 	public ProjectResponseDto createProject(@Valid ProjectRequestDto projectRequestDto) throws UserNotFoundException {
 		Project project = new Project();
@@ -88,6 +119,13 @@ public class ProjectServiceImpl implements ProjectService {
 		return projectResponseDto;
 	}
 
+	/**
+	 * Update project.
+	 *
+	 * @param projectRequestDto the project request dto
+	 * @return the project response dto
+	 * @throws ProjectNotFoundException the project not found exception
+	 */
 	@Override
 	public ProjectResponseDto updateProject(@Valid ProjectRequestDto projectRequestDto)
 			throws ProjectNotFoundException {
@@ -105,5 +143,28 @@ public class ProjectServiceImpl implements ProjectService {
 		BeanUtils.copyProperties(project, projectResponseDto);
 
 		return projectResponseDto;
+	}
+
+	/**
+	 * Gets the projects by user id.
+	 *
+	 * @param userId the user id
+	 * @return the projects by user id
+	 * @throws UserNotFoundException the user not found exception
+	 */
+	@Override
+	public List<ProjectResponseDto> getProjectsByUserId(Long userId) throws UserNotFoundException {
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+
+		List<Project> projects = projectRepository.findByOwner(user);
+		List<ProjectResponseDto> projectResponseDtos = new ArrayList<>();
+
+		for (Project project : projects) {
+			ProjectResponseDto projectResponseDto = new ProjectResponseDto();
+			BeanUtils.copyProperties(project, projectResponseDto);
+			projectResponseDtos.add(projectResponseDto);
+		}
+
+		return projectResponseDtos;
 	}
 }

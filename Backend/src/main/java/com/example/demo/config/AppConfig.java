@@ -9,14 +9,14 @@ import org.springframework.web.client.RestTemplate;
  */
 @Configuration
 public class AppConfig {
-    
-    /**
-     * Rest template.
-     *
-     * @return the rest template
-     */
-    @Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+
+	/**
+	 * Rest template.
+	 *
+	 * @return the rest template
+	 */
+	@Bean
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
 }

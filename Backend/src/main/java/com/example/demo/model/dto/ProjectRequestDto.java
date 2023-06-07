@@ -6,7 +6,7 @@ import jakarta.validation.constraints.NotNull;
  * The Class ProjectRequestDto.
  */
 public class ProjectRequestDto {
-	
+
 	/** The project id. */
 	private Long projectId;
 
@@ -134,5 +134,5 @@ public class ProjectRequestDto {
 	public void setVisibility(Boolean visibility) {
 		this.visibility = visibility;
 	}
-	
+
 }

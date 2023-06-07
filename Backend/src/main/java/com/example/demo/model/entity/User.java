@@ -7,6 +7,7 @@ import com.example.demo.model.entity.enums.Role;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -20,6 +21,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+// TODO: Auto-generated Javadoc
 /**
  * The Class User.
  * 
@@ -52,7 +54,7 @@ public class User {
 
 	/** The project preferences. */
 	@JsonManagedReference
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
 	private Set<ProjectPreference> projectPreferences;
 
 	/** The role. */
@@ -63,41 +65,58 @@ public class User {
 	@Column(name = "password_temporary")
 	private String passwordTemporary;
 
+	/** The password. */
 	@Column(name = "password")
 	private String password;
 
+	/** The is user paired. */
+	@Column(name = "is_user_paired")
+	private Boolean isUserPaired;
+
 	/** The proposed projects. */
 	@JsonBackReference
-	@OneToMany(mappedBy = "owner")
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
 	private Set<Project> proposedProjects;
 
-//	/** The group preference owner. */
-//	@OneToOne(cascade = CascadeType.ALL)
-//	@JoinColumn(name = "group_preference_owner_id", referencedColumnName = "groupPreferenceId")
-//	private GroupPreference groupPreference;
-
-	/** The preference of team mates. */
-//	@ManyToOne
-//	@JoinColumn(name = "group_preference_id")
-//	private GroupPreference preference;
-
-//	@JsonBackReference
-//	@OneToMany(mappedBy = "mate")
-//	private Set<GroupPreference> mates;
+	/** The pair preferences. */
 	@ManyToMany
-    @JoinTable(
-        name = "pair_preferences_users",
-        joinColumns = @JoinColumn(name = "user_id"),
-        inverseJoinColumns = @JoinColumn(name = "pair_preferences_id")
-    )
-    private List<PairPreference> pairPreferences;
-	
+	@JoinTable(name = "pair_preferences_users", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "pair_preferences_id"))
+	private List<PairPreference> pairPreferences;
+
+	/**
+	 * Gets the password temporary.
+	 *
+	 * @return the password temporary
+	 */
 	public String getPasswordTemporary() {
 		return passwordTemporary;
 	}
 
+	/**
+	 * Sets the password temporary.
+	 *
+	 * @param passwordTemporary the new password temporary
+	 */
 	public void setPasswordTemporary(String passwordTemporary) {
 		this.passwordTemporary = passwordTemporary;
+	}
+
+	/**
+	 * Gets the checks if is user paired.
+	 *
+	 * @return the checks if is user paired
+	 */
+	public Boolean getIsUserPaired() {
+		return isUserPaired;
+	}
+
+	/**
+	 * Sets the checks if is user paired.
+	 *
+	 * @param isUserPaired the new checks if is user paired
+	 */
+	public void setIsUserPaired(Boolean isUserPaired) {
+		this.isUserPaired = isUserPaired;
 	}
 
 	/**
@@ -262,49 +281,21 @@ public class User {
 		this.proposedProjects = proposedProjects;
 	}
 
+	/**
+	 * Gets the pair preferences.
+	 *
+	 * @return the pair preferences
+	 */
 	public List<PairPreference> getPairPreferences() {
 		return pairPreferences;
 	}
 
+	/**
+	 * Sets the pair preferences.
+	 *
+	 * @param pairPreferences the new pair preferences
+	 */
 	public void setPairPreferences(List<PairPreference> pairPreferences) {
 		this.pairPreferences = pairPreferences;
 	}
-	
-	
-
-	/**
-	 * Gets the group preference.
-	 *
-	 * @return the group preference
-	 */
-//	public GroupPreference getGroupPreferenceOwner() {
-//		return groupPreference;
-//	}
-//
-//	/**
-//	 * Sets the group preference.
-//	 *
-//	 * @param groupPreference the new group preference
-//	 */
-//	public void setGroupPreferenceOwner(GroupPreference groupPreference) {
-//		this.groupPreference = groupPreference;
-//	}
-
-	/**
-	 * Gets the preference.
-	 *
-	 * @return the preference
-	 */
-//	public GroupPreference getPreferenceMate() {
-//		return preference;
-//	}
-//
-//	/**
-//	 * Sets the preference.
-//	 *
-//	 * @param preference the new preference
-//	 */
-//	public void setPreferenceMate(GroupPreference preference) {
-//		this.preference = preference;
-//	}
 }

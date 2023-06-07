@@ -14,7 +14,20 @@ import com.example.demo.model.entity.User;
  */
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-	Optional<User> findByEmail(String email);
 	
+	/**
+	 * Find by email.
+	 *
+	 * @param email the email
+	 * @return the optional
+	 */
+	Optional<User> findByEmail(String email);
+
+	/**
+	 * Exists by email.
+	 *
+	 * @param email the email
+	 * @return the boolean
+	 */
 	Boolean existsByEmail(String email);
 }

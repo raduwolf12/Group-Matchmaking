@@ -57,6 +57,11 @@ public interface UserService {
 	 */
 	public void deleteUserById(Long id) throws UserNotFoundException;
 
+	/**
+	 * Gets the all students.
+	 *
+	 * @return the all students
+	 */
 	public List<UserResponseDto> getAllStudents();
 
 }

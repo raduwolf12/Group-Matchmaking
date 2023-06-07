@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ProjectController {
 	 * @return the response entity
 	 */
 	@PostMapping("/save/project")
-	@PreAuthorize ("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
+	@PreAuthorize("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> createProject(@Valid @RequestBody ProjectRequestDto projectRequestDto) {
 
 		ProjectResponseDto projectResponseDto;
@@ -65,7 +66,7 @@ public class ProjectController {
 	 * @return the response entity
 	 */
 	@PutMapping("/update/project")
-	@PreAuthorize ("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
+	@PreAuthorize("hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> updateProject(@Valid @RequestBody ProjectRequestDto projectRequestDto) {
 
 		try {
@@ -85,7 +86,7 @@ public class ProjectController {
 	 * @throws ProjectNotFoundException the project not found exception
 	 */
 	@GetMapping("/get/project/{id}")
-	@PreAuthorize ("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
 	public ResponseEntity<ProjectResponseDto> getProject(@PathVariable Long id) throws ProjectNotFoundException {
 
 		ProjectResponseDto project = new ProjectResponseDto();
@@ -97,6 +98,21 @@ public class ProjectController {
 		}
 		return new ResponseEntity<>(project, HttpStatus.OK);
 	}
+	
+	@GetMapping("/get/projects/{userId}")
+	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR') or hasAuthority ('TEACHER')")
+	public ResponseEntity<List<ProjectResponseDto>> getProjectByUserId(@PathVariable Long userId) throws UserNotFoundException {
+
+		List<ProjectResponseDto> projects = new ArrayList<ProjectResponseDto>();
+		try {
+			projects = projectService.getProjectsByUserId(userId);
+
+		} catch (Exception e) {
+			throw new UserNotFoundException(e.getMessage());
+		}
+		return new ResponseEntity<>(projects, HttpStatus.OK);
+	}
+	
 
 	/**
 	 * Gets the all projects.
@@ -128,7 +144,7 @@ public class ProjectController {
 	 * @return the response entity
 	 * @throws ProjectNotFoundException the project not found exception
 	 */
-	@DeleteMapping("/delete/project/id")
+	@DeleteMapping("/delete/project/{id}")
 	@PreAuthorize("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<ProjectResponseDto> deleteProject(@PathVariable Long id) throws ProjectNotFoundException {
 

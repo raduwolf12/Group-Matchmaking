@@ -79,8 +79,8 @@ public class PreferenceController {
 	 *
 	 * @param id the id
 	 * @return the project preferences
-	 * @throws UserNotFoundException
-	 * @throws GroupPreferenceException
+	 * @throws UserNotFoundException    the user not found exception
+	 * @throws GroupPreferenceException the group preference exception
 	 */
 	@GetMapping("/get/project/preference/{id}")
 	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
@@ -152,6 +152,12 @@ public class PreferenceController {
 
 	}
 
+	/**
+	 * Leave pair.
+	 *
+	 * @param userId the user id
+	 * @return the response entity
+	 */
 	@PutMapping("/{userId}/leave")
 	@PreAuthorize("hasAuthority ('STUDENT') or hasAuthority ('PROFESSOR')")
 	public ResponseEntity<String> leavePair(@PathVariable("userId") Long userId) {

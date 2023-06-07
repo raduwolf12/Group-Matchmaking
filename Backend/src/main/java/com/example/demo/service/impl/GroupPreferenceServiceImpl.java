@@ -62,7 +62,11 @@ public class GroupPreferenceServiceImpl implements GroupPreferenceService {
 		if (mates.size() != preferences.getMates().size()) {
 			throw new UserNotFoundException("One or more users don't exist");
 		}
-
+		for(User mate:mates) {
+			mate.setIsUserPaired(true);
+		}
+		groupOwnerOptional.get().setIsUserPaired(true);
+		
 		groupPreference.setGroupCreator(groupOwnerOptional.get());
 		List<User> users = groupPreference.getUsers();
 		if (users != null) {
@@ -113,7 +117,13 @@ public class GroupPreferenceServiceImpl implements GroupPreferenceService {
 		return responseDto;
 
 	}
-	
+
+	/**
+	 * Leave pair.
+	 *
+	 * @param userId the user id
+	 * @throws UserNotFoundException the user not found exception
+	 */
 	@Override
 	public void leavePair(Long userId) throws UserNotFoundException {
 		Optional<User> userOptional = userRepository.findById(userId);
@@ -122,6 +132,8 @@ public class GroupPreferenceServiceImpl implements GroupPreferenceService {
 		}
 
 		User user = userOptional.get();
+		user.setIsUserPaired(false);
+		
 		List<PairPreference> pairPreferencesList = user.getPairPreferences();
 
 		if (!pairPreferencesList.isEmpty()) {
