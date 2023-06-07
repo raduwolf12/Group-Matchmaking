@@ -1,70 +1,59 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectDialogFormComponent } from '../dialog/project-dialog-form/project-dialog-form.component';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { StudentModel } from '../model/student-model';
 import { Project } from '../model/project-model';
+import { Observable, Subscription } from 'rxjs';
+import { StudentServiceService } from '../services/student-service.service';
+import { ProjectServiceService } from '../services/project-service.service';
 
 @Component({
   selector: 'app-professor-form',
   templateUrl: './professor-form.component.html',
   styleUrls: ['./professor-form.component.scss'],
 })
-export class ProfessorFormComponent {
+export class ProfessorFormComponent implements OnInit, OnDestroy {
   projectList: Project[] = [];
-  accessToken: string | null = null;
   sessionUserId: string;
-  studentList: StudentModel[] = [];
+  studentList$: Observable<StudentModel[]>;
+
+  getProjectsSub: Subscription;
 
   constructor(
-    private http: HttpClient,
-    private dialog: MatDialog) { }
+    private dialog: MatDialog,
+    readonly studentService: StudentServiceService,
+    private projectService: ProjectServiceService
+  ) {
+    this.sessionUserId = sessionStorage.getItem('userId');
+    this.studentList$ = studentService.getStudents();
+  }
+
+  ngOnDestroy(): void {
+    this.getProjectsSub.unsubscribe();
+  }
 
   ngOnInit() {
-    this.accessToken = sessionStorage.getItem('accessToken');
-    this.sessionUserId = sessionStorage.getItem('userId');
-
-    // Fetch projects from backend
     this.fetchProjects();
-
-    this.fetchUsers();
-
   }
 
   fetchProjects(): void {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + this.accessToken
-    );
-    this.http
-      .get<Project[]>('http://localhost:8080/projects/get/projects', {
-        headers,
-      })
-      .subscribe(
-        (projects) => {
-          this.projectList = projects;
-        }
-      );
-  }
-
-  fetchUsers(): void {
-    const headers = new HttpHeaders().set(
-      'Authorization',
-      'Bearer ' + this.accessToken
-    );
-    this.http
-      .get<StudentModel[]>('http://localhost:8080/users/get/students', {
-        headers,
-      })
-      .subscribe((users) => {
-        this.studentList = users;
-
+    this.getProjectsSub = this.projectService
+      .getProjects()
+      .subscribe((projects) => {
+        this.projectList = projects;
       });
   }
 
-  editProject() {
+  addProject() {
     this.dialog.open(ProjectDialogFormComponent, {
-      data: this.projectList,
+      autoFocus: false,
+    });
+  }
+
+  editProject(project: Project) {
+    this.dialog.open(ProjectDialogFormComponent, {
+      data: project,
       autoFocus: false,
     });
   }

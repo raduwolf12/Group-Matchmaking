@@ -16,10 +16,18 @@
       display: flex;
       flex-flow: row wrap;
       justify-content: space-evenly;
-      .export-btn {
-        justify-self: center;
-        align-self: center;
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin: 8px;
+        padding: 4px;
+        width: 284px;
+        height: 284px;
+        .export-btn {
+          align-self: center;
+        }
       }
+
       .project-card {
         display: flex;
         align-items: center;

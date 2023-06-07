@@ -34,8 +34,10 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.saveProjectSub.unsubscribe();
     this.getProjectSub.unsubscribe();
+    if (this.saveProjectSub) {
+      this.saveProjectSub.unsubscribe();
+    }
   }
 
   ngOnInit() {

@@ -64,9 +64,13 @@ export class StudentFormComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.studentSub.unsubscribe();
     this.projectSub.unsubscribe();
-    this.groupPrefSub.unsubscribe();
-    this.projecPrefSub.unsubscribe();
     this.pairSizeSub.unsubscribe();
+    if (this.groupPrefSub) {
+      this.groupPrefSub.unsubscribe();
+    }
+    if (this.projecPrefSub) {
+      this.projecPrefSub.unsubscribe();
+    }
   }
 
   _filter(value: string): StudentModel[] {
