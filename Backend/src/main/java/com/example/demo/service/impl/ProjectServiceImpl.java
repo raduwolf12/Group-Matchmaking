@@ -51,6 +51,7 @@ public class ProjectServiceImpl implements ProjectService {
 		Project project = optional.get();
 
 		ProjectResponseDto projectResponseDto = new ProjectResponseDto();
+		projectResponseDto.setOwner_user_id(project.getOwner().getUserId());
 		BeanUtils.copyProperties(project, projectResponseDto);
 
 		return projectResponseDto;
@@ -68,6 +69,7 @@ public class ProjectServiceImpl implements ProjectService {
 		for (Project project : projects) {
 			ProjectResponseDto projectResponseDto = new ProjectResponseDto();
 			BeanUtils.copyProperties(project, projectResponseDto);
+			projectResponseDto.setOwner_user_id(project.getOwner().getUserId());
 			projectResponseDtos.add(projectResponseDto);
 		}
 		return projectResponseDtos;
@@ -113,6 +115,7 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.save(project);
 
 		ProjectResponseDto projectResponseDto = new ProjectResponseDto();
+		projectResponseDto.setOwner_user_id(project.getOwner().getUserId());
 		BeanUtils.copyProperties(project, projectResponseDto);
 		projectResponseDto.setOwner_user_id(userId);
 
@@ -140,6 +143,7 @@ public class ProjectServiceImpl implements ProjectService {
 		projectRepository.save(project);
 
 		ProjectResponseDto projectResponseDto = new ProjectResponseDto();
+		projectResponseDto.setOwner_user_id(project.getOwner().getUserId());
 		BeanUtils.copyProperties(project, projectResponseDto);
 
 		return projectResponseDto;
@@ -162,6 +166,7 @@ public class ProjectServiceImpl implements ProjectService {
 		for (Project project : projects) {
 			ProjectResponseDto projectResponseDto = new ProjectResponseDto();
 			BeanUtils.copyProperties(project, projectResponseDto);
+			projectResponseDto.setOwner_user_id(project.getOwner().getUserId());
 			projectResponseDtos.add(projectResponseDto);
 		}
 

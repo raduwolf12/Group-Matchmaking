@@ -29,6 +29,14 @@ export class ProjectServiceService {
       }
     );
   }
+  getProjectsById(): Observable<Project[]> {
+    return this.httpClient.get<Project[]>(
+      'http://localhost:8080/projects/get/projects/' + this.sessionUserId,
+      {
+        headers: this.headers,
+      }
+    );
+  }
 
   saveProject(projectData: Project) {
     return this.httpClient.post(

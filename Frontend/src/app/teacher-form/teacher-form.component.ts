@@ -68,7 +68,7 @@ export class TeacherFormComponent implements OnInit, OnDestroy {
 
   fetchProjects() {
     this.getProjectSub = this.projectService
-      .getProjects()
+      .getProjectsById()
       .subscribe((projects) => {
         this.projectList = projects;
       });
