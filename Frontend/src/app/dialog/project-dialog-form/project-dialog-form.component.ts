@@ -13,12 +13,15 @@ import { ProjectServiceService } from 'src/app/services/project-service.service'
 export class ProjectDialogFormComponent implements OnInit, OnDestroy {
   projectForm: FormGroup;
   projectSub: Subscription;
+  sessionUserId;
 
   constructor(
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: Project,
     private projectService: ProjectServiceService
   ) {
+    this.sessionUserId = sessionStorage.getItem('userId');
+
     this.projectForm = this.fb.group({
       projectName: ['', Validators.required],
       projectDescription: ['', Validators.required],
@@ -40,8 +43,17 @@ export class ProjectDialogFormComponent implements OnInit, OnDestroy {
   }
 
   onSubmit() {
-    this.data.title = this.projectForm.value.projectName;
-    this.data.description = this.projectForm.value.projectDescription;
-    this.projectSub = this.projectService.saveProject(this.data).subscribe();
+    if (this.data) {
+      this.data.title = this.projectForm.value.projectName;
+      this.data.description = this.projectForm.value.projectDescription;
+      this.projectSub = this.projectService.saveProject(this.data).subscribe();
+    } else {
+      const project: Project = {
+        title: this.projectForm.value.projectName,
+        owner_user_id: this.sessionUserId,
+        description: this.projectForm.value.projectDescription,
+      };
+      this.projectSub = this.projectService.saveProject(project).subscribe();
+    }
   }
 }
