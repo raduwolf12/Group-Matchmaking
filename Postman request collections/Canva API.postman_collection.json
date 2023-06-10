@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "f25e582e-a503-4c9c-983a-3a4011fbcc89",
+		"name": "Canva API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-f25e582e-a503-4c9c-983a-3a4011fbcc89?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Canvas get courses",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "access_token",
+							"value": "7500~E3BT9erhIrD6fzRbImlXhhyafZURsIv82pjWzGTiXTdBLIxMZ8pYvVqXAoMPwebA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/canva-api/courses",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"canva-api",
+						"courses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account info",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "access_token",
+							"value": "7500~E3BT9erhIrD6fzRbImlXhhyafZURsIv82pjWzGTiXTdBLIxMZ8pYvVqXAoMPwebA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/canva-api/account",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"canva-api",
+						"account"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get students from course",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "access_token",
+							"value": "7500~E3BT9erhIrD6fzRbImlXhhyafZURsIv82pjWzGTiXTdBLIxMZ8pYvVqXAoMPwebA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/canva-api/courses/64703/students",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"canva-api",
+						"courses",
+						"64703",
+						"students"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create a group - not working",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"name\": \"TEST MATCHMAKING API\",\r\n   \"description\": \"This is a MATCHMAKING API group test\",\r\n   \"studentIds\": [\"398825\"]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/canva-api/courses/64703/groups/7500~E3BT9erhIrD6fzRbImlXhhyafZURsIv82pjWzGTiXTdBLIxMZ8pYvVqXAoMPwebA",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"canva-api",
+						"courses",
+						"64703",
+						"groups",
+						"7500~E3BT9erhIrD6fzRbImlXhhyafZURsIv82pjWzGTiXTdBLIxMZ8pYvVqXAoMPwebA"
+					],
+					"query": [
+						{
+							"key": null,
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

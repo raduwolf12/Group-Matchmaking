@@ -1,0 +1,149 @@
+{
+	"info": {
+		"_postman_id": "10083eba-a87e-4dfa-b18d-9e58df3e4d4f",
+		"name": "Admin api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-10083eba-a87e-4dfa-b18d-9e58df3e4d4f?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Form final groups",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODY0MDQ0ODMsImV4cCI6MTY4NjQ5MDg4M30.qmzcu6qBsAbn5kGyMKXFOPFjiPA8ue0PlmzNo9toVho",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/start",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"start"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update pair size and group size",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/settings?pairSize=3&groupSize=7",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"settings"
+					],
+					"query": [
+						{
+							"key": "pairSize",
+							"value": "3"
+						},
+						{
+							"key": "groupSize",
+							"value": "7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get pair size",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/settings/pairSize",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"settings",
+						"pairSize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get group size",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/settings/groupSize",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"settings",
+						"groupSize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get final-groups",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODY0MDQ0ODMsImV4cCI6MTY4NjQ5MDg4M30.qmzcu6qBsAbn5kGyMKXFOPFjiPA8ue0PlmzNo9toVho",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/get/final-groups",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"get",
+						"final-groups"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "cae9c0d0-e2d7-4ba6-ad77-f0d087e50ac8",
+		"name": "Project API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-cae9c0d0-e2d7-4ba6-ad77-f0d087e50ac8?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Get proj by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODU3MTc0NTIsImV4cCI6MTY4NTgwMzg1Mn0.GgKrdhYojobQeSOMS3N8lYF_zZqlcL204gxfrqM00D8",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/projects/get/project/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"get",
+						"project",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all projects",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/projects/get/projects",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"get",
+						"projects"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create proj request",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"projectId\": null,\r\n        \"title\": \"Test project11111\",\r\n        \"description\": \"Test proj desc 4\",\r\n        \"owner_user_id\": 18,\r\n        \"size\": 8,\r\n        \"visibility\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/projects/save/project",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"save",
+						"project"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get projects by user id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/projects/get/projects/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"get",
+						"projects",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete project",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/projects/delete/project/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"projects",
+						"delete",
+						"project",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

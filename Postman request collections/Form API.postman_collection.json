@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "92b371cf-e092-4fdd-b5e7-99af7cdb86ea",
+		"name": "Form API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-92b371cf-e092-4fdd-b5e7-99af7cdb86ea?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Open form",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "duration",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/form/open",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"form",
+						"open"
+					],
+					"query": [
+						{
+							"key": "duration",
+							"value": "10",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Form status",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODUzMDAyMzksImV4cCI6MTY4NTM4NjYzOX0.A_4c-emf8W0aWia7sh774hNv9nlLUcpzWddaQuNLK7A",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/form/status",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"form",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Close form",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/form/close",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"form",
+						"close"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

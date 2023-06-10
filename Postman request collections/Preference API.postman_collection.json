@@ -1,0 +1,165 @@
+{
+	"info": {
+		"_postman_id": "ca99642f-643f-4df7-86ac-cb2defc7579b",
+		"name": "Preference API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-ca99642f-643f-4df7-86ac-cb2defc7579b?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Save project preferences",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODU3MTc0NTIsImV4cCI6MTY4NTgwMzg1Mn0.GgKrdhYojobQeSOMS3N8lYF_zZqlcL204gxfrqM00D8",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[{\r\n    \"projectPreferenceId\":1,\r\n    \"userId\":1,\r\n    \"rank\":1,\r\n    \"projectId\":1\r\n},\r\n{\r\n    \"projectPreferenceId\":1,\r\n    \"userId\":2,\r\n    \"rank\":2,\r\n    \"projectId\":1\r\n}]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/preferences/save/project/preference",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"preferences",
+						"save",
+						"project",
+						"preference"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get project preference by user id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYwODExNzEsImV4cCI6MTY4NjE2NzU3MX0.EO71rJ8jefhhbB0Dy5yF7iVdyHKuac52cb4egZADi9g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/preferences/get/project/preference/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"preferences",
+						"get",
+						"project",
+						"preference",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save group preference",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"groupOwner\":11,\r\n    \"mates\":[11, 1]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/preferences/save/group/preference",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"preferences",
+						"save",
+						"group",
+						"preference"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get group pref",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODU5ODAwMzUsImV4cCI6MTY4NjA2NjQzNX0.-AVS9ittuJT5vCGuCNYGqli-VTkyvZYNlVx_eJNyfOI",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/preferences/get/group/preference/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"preferences",
+						"get",
+						"group",
+						"preference",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Leave pair",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODU4ODgxMDIsImV4cCI6MTY4NTk3NDUwMn0.uThw21HuAFyI1Tb4I0I52unKlxuEeJ8AxSmFn2RjQwU",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/preferences/4/leave",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"preferences",
+						"4",
+						"leave"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

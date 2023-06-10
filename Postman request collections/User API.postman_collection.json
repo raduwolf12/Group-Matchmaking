@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "155ddbce-d578-46ef-a8b4-23228abdecdc",
+		"name": "User API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24583501",
+		"_collection_link": "https://lunar-sunset-7090.postman.co/workspace/Team-Workspace~eab4fc4a-e6b7-437b-8481-20963d9a0cc2/collection/24583501-155ddbce-d578-46ef-a8b4-23228abdecdc?action=share&creator=24583501&source=collection_link"
+	},
+	"item": [
+		{
+			"name": "Save a user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": 4,\r\n        \"name\": \"qwe\",\r\n        \"canvasUserId\": 4,\r\n        \"groupId\": 3,\r\n        \"preferenceId\": 2,\r\n        \"role\": \"TEACHER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/save/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"save",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all users",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/get/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"get",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get user by id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhYmNAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODYxNjMzNjMsImV4cCI6MTY4NjI0OTc2M30._YQNLZmyVfMbI43gLBqGMjS5Qvwe-akSOmeUgGjs7ig",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/get/user/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"get",
+						"user",
+						"10"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": 4,\r\n        \"name\": \"fff\",\r\n        \"canvasUserId\": 4,\r\n        \"groupId\": 3,\r\n        \"preferenceId\": 2,\r\n        \"role\": \"TEACHER\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/update/user",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"update",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete all users",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODUzNzQ4NjQsImV4cCI6MTY4NTQ2MTI2NH0.gf6Cnmf8a85AfHi8DK_bXLtjBaRzU8s3e2lNixotDN4",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/delete/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete users by id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/users/delete/user/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"delete",
+						"user",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "AccesToken",
+			"value": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ3aHg4NjJAYWx1bW5pLmt1LmRrIiwiaXNzIjoiQ29kZUphdmEiLCJpYXQiOjE2ODUzNzQ4NjQsImV4cCI6MTY4NTQ2MTI2NH0.gf6Cnmf8a85AfHi8DK_bXLtjBaRzU8s3e2lNixotDN4"
+		}
+	]
+}
