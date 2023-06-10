@@ -2,24 +2,42 @@ package com.example.demo.model.entity;
 
 import java.util.Set;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+
 /**
  * The Class FinalGroup.
  */
+@Entity
+@Table(name = "final_group")
 public class FinalGroup {
 
 	/** The id. */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Long id;
-	
+
 	/** The members. */
+	@ManyToMany
+	@JoinTable(name = "final_group_user", joinColumns = @JoinColumn(name = "final_group_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
 	Set<User> members;
-	
-	/** The project. */
+
+	@ManyToOne
+	@JoinColumn(name = "project_id")
 	Project project;
-	
-	/** The solo slots. */
+
+	@Column(name = "solo_slots")
 	int soloSlots;
-	
-	/** The pair slots. */
+
+	@Column(name = "pair_slots")
 	int pairSlots;
 
 	/**

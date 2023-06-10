@@ -1,5 +1,8 @@
 package com.example.demo.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.model.dto.FinalGroupResponseDto;
 import com.example.demo.model.entity.Configuration;
 import com.example.demo.repository.ConfigurationRepository;
 import com.example.demo.service.AdminService;
@@ -84,6 +88,18 @@ public class AdminController {
 		} catch (Exception e) {
 			return new ResponseEntity<>("A exception occured while forming groups, retry!",
 					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@PostMapping("/get/final-groups")
+	@PreAuthorize("hasAuthority ('PROFESSOR')")
+	public ResponseEntity<List<FinalGroupResponseDto>> getGroups() {
+		List<FinalGroupResponseDto> finalGroupResponseDtos = new ArrayList<FinalGroupResponseDto>();
+		try {
+			finalGroupResponseDtos = adminService.getGroups();
+			return new ResponseEntity<>(finalGroupResponseDtos, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
