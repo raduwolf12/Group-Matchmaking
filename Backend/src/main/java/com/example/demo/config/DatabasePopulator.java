@@ -85,8 +85,9 @@ public class DatabasePopulator {
 			for (int i = 1; i <= 16; i++) {
 				User user = new User();
 				user.setName("User " + i);
-				user.setEmail("user" + i + "@example.com");
+				user.setEmail("user" + i + "@yahoo.com");
 				user.setPassword(encoder.encode("testpass"));
+				user.setPasswordTemporary("testpass");
 				user.setRole(Role.STUDENT);
 				userRepository.save(user);
 				users.add(user);

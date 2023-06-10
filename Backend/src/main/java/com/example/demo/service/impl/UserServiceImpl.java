@@ -10,11 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.model.dto.UserRequestDto;
 import com.example.demo.model.dto.UserResponseDto;
+import com.example.demo.model.entity.PairPreference;
 import com.example.demo.model.entity.User;
 import com.example.demo.model.entity.enums.Role;
+import com.example.demo.repository.GroupPreferenceRepository;
 import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import com.example.demo.validation.exception.UserNotFoundException;
+
+import jakarta.transaction.Transactional;
 
 /**
  * The Class UserServiceImpl.
@@ -27,6 +31,9 @@ public class UserServiceImpl implements UserService {
 	/** The user repository. */
 	@Autowired
 	UserRepository userRepository;
+	
+	@Autowired
+	GroupPreferenceRepository groupPreferenceRepository;
 
 	/**
 	 * Creates the user.
@@ -60,6 +67,7 @@ public class UserServiceImpl implements UserService {
 		for (User user : users) {
 			UserResponseDto userResponseDto = new UserResponseDto();
 			BeanUtils.copyProperties(user, userResponseDto);
+			userResponseDto.setPassword(user.getPasswordTemporary());
 			userResponseDtos.add(userResponseDto);
 		}
 		return userResponseDtos;
@@ -136,8 +144,22 @@ public class UserServiceImpl implements UserService {
 			throw new UserNotFoundException("User doesn't exist for the Id: " + id);
 
 		User user = optional.get();
+		
+//		groupPreferenceRepository.removeUserReferencesByUserId(user.getUserId());
+	    removeUserFromPairPreferences(user);
+
 
 		userRepository.delete(user);
+	}
+	
+	
+	@Transactional
+	public void removeUserFromPairPreferences(User user) {
+	    for (PairPreference pairPreference : user.getPairPreferences()) {
+//	        pairPreference.getUsers().remove(user);
+	    	groupPreferenceRepository.delete(pairPreference);
+	    }
+	    userRepository.save(user);
 	}
 
 	/**

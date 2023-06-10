@@ -1,0 +1,59 @@
+## Requirements
+
+- Node.js and Angular CLI
+- Java Development Kit (JDK)
+- PostgreSQL database
+
+## Installation
+
+1. Install the required software as mentioned in the Requirements section.
+
+2. Frontend (Angular):
+   - Open a command prompt or terminal.
+   - Navigate to the "frontend" directory.
+   - Run the following command to install the dependencies:
+     ```
+     npm install
+     ```
+   - Once the dependencies are installed, build the Angular application using the following command:
+     ```
+     ng build --configuration production
+     ```
+
+3. Backend (Java):
+   - Open a command prompt or terminal.
+   - Navigate to the "backend" directory.
+   - Compile the Java source code and package it into a JAR file using the following commands:
+     ```
+     mvnw clean package -DskipTests
+     ```
+     Replace "your-application.jar" with the desired name for your JAR file.
+
+4. Database (PostgreSQL):
+   - Ensure that you have a PostgreSQL database installed and running.
+   - Create a new database and note down the connection details (hostname, port, database name, username, password).
+
+5. Configuration:
+   - In the "backend" directory, locate the "application.properties" file.
+   - Open the file in a text editor and update the PostgreSQL connection details:
+     ```
+     spring.datasource.url=jdbc:postgresql://hostname:port/database
+     spring.datasource.username=username
+     spring.datasource.password=password
+     ```
+
+## Usage
+
+1. Run the application:
+   - Open a command prompt or terminal.
+   - Navigate to the main folder (the one containing "frontend" and "backend" directories).
+   - Run the following command to start the frontend and backend servers:
+     ```
+     start cmd /k "cd frontend && http-server ./dist -p 4200"
+     start cmd /k "cd backend/target && java -jar demo-0.0.1-SNAPSHOT.jar"
+     ```
+
+2. Access the application:
+   - Open a web browser.
+   - Enter the following URL: http://localhost:4200
+   - You should now see the Angular frontend of the application.

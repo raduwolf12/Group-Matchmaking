@@ -1,0 +1,43 @@
+Requirements:
+	Node.js and Angular CLI installed.
+	Java Development Kit (JDK) installed (jdk 17.0.7 or later).
+	PostgreSQL database installed (10 or later).
+
+1) Install the required software:
+
+a)Node.js and Angular CLI:
+
+	Visit the Node.js website: https://nodejs.org
+	Download and install the appropriate version of Node.js for your operating system.
+	Note: For this project Node v18.16.0 was used and the npm version 9.6.7.
+	Install the Angular CLI globally by running the following command:
+		npm install -g @angular/cli
+
+b)Java Development Kit (JDK):
+
+	Visit the Oracle website or OpenJDK website to download and install the JDK for your operating system.
+	Set up the JAVA_HOME environment variable and add the JDK's "bin" directory to the system's PATH variable. 
+	You can find instructions specific to your operating system online.
+	Note: For this project it jdk 17.0.7 was used.
+
+c)PostgreSQL Database:
+
+	Visit the PostgreSQL website: https://www.postgresql.org
+	Download and install the appropriate version of PostgreSQL for your operating system.
+	Note: For this project the databased used was "PostgreSQL 10"
+	During the installation, take note of the hostname, port, database name, username, and password used for the PostgreSQL installation.
+	Note: For this project the port is 5432, the username and password are postgres, and the database name is matchmaking
+2) How to run the application:
+Before starting the application, it is necessary to create the database called "matchmaking". It is also necessary that the port on which postgres runs is 5432 and the password and user are postgres. Otherwise, the backend will not work and therefore the frontend will not work either.
+
+Before starting the application, it is necessary to do the following command in cmd "npm install -g http-server"
+
+For the convenience of the user, an executable file has been created that will start your backend and frontend directly. The executable file is "start.cmd"
+Also in the application folder there are two bat executable files, called Frontend and Backend, which start the frontend and the backend, respectively.
+
+If the user wants to manually start the backend and the frontend from cmd, then he must follow the following steps:
+	To start the backend, the user must open a cmd in the directory with the application and put the following command: 
+		java -jar backend.jar
+	Note: You can use the "path to jdk\bin\java" -jar backend.jar as a command if you don't want to set JAVA_HOME
+	To start the frontend, the user must open a cmd in the directory with the application and enter the following command: 
+		http-server ./frontend -p 4200

@@ -1,0 +1,1 @@
+http-server ./frontend -p 4200

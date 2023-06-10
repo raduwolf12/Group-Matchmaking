@@ -54,7 +54,7 @@ public class User {
 
 	/** The project preferences. */
 	@JsonManagedReference
-	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Set<ProjectPreference> projectPreferences;
 
 	/** The role. */
@@ -75,7 +75,7 @@ public class User {
 
 	/** The proposed projects. */
 	@JsonBackReference
-	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE)
+	@OneToMany(mappedBy = "owner", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Set<Project> proposedProjects;
 
 	/** The pair preferences. */

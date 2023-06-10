@@ -94,9 +94,15 @@ public class FormController {
 	 */
 	@GetMapping("/status")
 	public ResponseEntity<String> getFormStatus() {
+		try {
 		boolean isOpen = formService.isFormOpen();
 		String status = isOpen ? "Open" : "Closed";
 		return ResponseEntity.ok(status);
+		}
+		catch (Exception e) {
+			return new ResponseEntity<>("No open form!",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }
