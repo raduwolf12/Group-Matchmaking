@@ -1,4 +1,0 @@
-mvnw clean package -DskipTests
-docker-compose down
-docker rmi docker-spring-boot-postgres:latest
-docker-compose up
