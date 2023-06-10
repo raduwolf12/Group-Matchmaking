@@ -2,13 +2,11 @@ version: '2'
 
 services:
   app:
-    image: 'docker-spring-boot-postgres:latest'
-    expose:
-      - 8080
+    # image: 'docker-spring-boot-postgres:latest'
     ports:
       - 8080:8080
     build:
-      context: .
+      context: Backend
     container_name: app
     depends_on:
       - db
@@ -24,3 +22,12 @@ services:
     environment:
       - POSTGRES_USER=compose-postgres
       - POSTGRES_PASSWORD=compose-postgres
+
+  frontend:
+    image: 'nginx:1.19.6-alpine'
+    container_name: frontend
+    ports:
+      - 80:80
+    volumes:
+      - ./Frontend/dist/frontend:/usr/share/nginx/html
+      - ./Frontend/nginx-fix.conf:/etc/nginx/conf.d/redirect.conf
