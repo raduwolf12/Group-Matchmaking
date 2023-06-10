@@ -2,11 +2,14 @@
 
 ## Usage
 
+This is assuming that you have docker and its compose plugin installed, allong with maven and node/npm.
+
 1. Build the ressources :
 
 ```bash
 # Build the frontend
 cd Frontend
+npm install
 node_modules/@angular/cli/bin/ng.js build
 # Build the backend
 cd ../Backend
