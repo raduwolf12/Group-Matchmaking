@@ -32,14 +32,14 @@ public class UserResponseDto {
 	private String email;
 
 	/** The is user paired. */
-	private Boolean isUserPaired;
+	private boolean isUserPaired;
 
 	/**
 	 * Gets the checks if is user paired.
 	 *
 	 * @return the checks if is user paired
 	 */
-	public Boolean getIsUserPaired() {
+	public boolean getIsUserPaired() {
 		return isUserPaired;
 	}
 
@@ -48,7 +48,7 @@ public class UserResponseDto {
 	 *
 	 * @param isUserPaired the new checks if is user paired
 	 */
-	public void setIsUserPaired(Boolean isUserPaired) {
+	public void setIsUserPaired(boolean isUserPaired) {
 		this.isUserPaired = isUserPaired;
 	}
 

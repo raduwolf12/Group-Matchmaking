@@ -71,7 +71,7 @@ public class User {
 
 	/** The is user paired. */
 	@Column(name = "is_user_paired")
-	private Boolean isUserPaired;
+	private boolean isUserPaired;
 
 	/** The proposed projects. */
 	@JsonBackReference
@@ -106,7 +106,7 @@ public class User {
 	 *
 	 * @return the checks if is user paired
 	 */
-	public Boolean getIsUserPaired() {
+	public boolean getIsUserPaired() {
 		return isUserPaired;
 	}
 
@@ -115,7 +115,7 @@ public class User {
 	 *
 	 * @param isUserPaired the new checks if is user paired
 	 */
-	public void setIsUserPaired(Boolean isUserPaired) {
+	public void setIsUserPaired(boolean isUserPaired) {
 		this.isUserPaired = isUserPaired;
 	}
 

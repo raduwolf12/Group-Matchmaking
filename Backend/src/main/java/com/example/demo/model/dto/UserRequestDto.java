@@ -35,7 +35,7 @@ public class UserRequestDto {
 	Long preferenceId;
 
 	/** The is user paired. */
-	Boolean isUserPaired;
+	boolean isUserPaired;
 
 	/** The role. */
 	@NotNull
@@ -50,7 +50,7 @@ public class UserRequestDto {
 	 *
 	 * @return the checks if is user paired
 	 */
-	public Boolean getIsUserPaired() {
+	public boolean getIsUserPaired() {
 		return isUserPaired;
 	}
 
@@ -59,7 +59,7 @@ public class UserRequestDto {
 	 *
 	 * @param isUserPaired the new checks if is user paired
 	 */
-	public void setIsUserPaired(Boolean isUserPaired) {
+	public void setIsUserPaired(boolean isUserPaired) {
 		this.isUserPaired = isUserPaired;
 	}
 
