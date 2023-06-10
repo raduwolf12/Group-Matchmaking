@@ -30,4 +30,4 @@ services:
       - 80:80
     volumes:
       - ./Frontend/dist/frontend:/usr/share/nginx/html
-      - ./Frontend/nginx-fix.conf:/etc/nginx/conf.d/redirect.conf
+      - ./Frontend/nginx-fix.conf:/etc/nginx/conf.d/default.conf
