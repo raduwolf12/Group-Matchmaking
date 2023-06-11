@@ -91,7 +91,7 @@ public class AdminController {
 		}
 	}
 
-	@PostMapping("/get/final-groups")
+	@GetMapping("/get/final-groups")
 	@PreAuthorize("hasAuthority ('PROFESSOR')")
 	public ResponseEntity<List<FinalGroupResponseDto>> getGroups() {
 		List<FinalGroupResponseDto> finalGroupResponseDtos = new ArrayList<FinalGroupResponseDto>();
