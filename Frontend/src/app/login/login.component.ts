@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { StudentModel } from '../model/student-model';
 
 @Component({
   selector: 'app-login',
@@ -47,13 +48,15 @@ export class LoginComponent {
     );
 
     this.http.get(apiUrl, { headers }).subscribe(
-      (response: any) => {
+      (response: StudentModel) => {
         if (response.role) {
           // Redirect based on the user role
           sessionStorage.setItem('userRole', response.role);
           switch (response.role) {
             case 'STUDENT':
-              this.router.navigate(['/student-form']);
+              this.router.navigate(['/student-form'], {
+                state: { data: response },
+              });
               break;
             case 'TEACHER':
               this.router.navigate(['/teacher-form']);

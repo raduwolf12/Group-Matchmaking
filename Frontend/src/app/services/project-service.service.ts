@@ -38,6 +38,15 @@ export class ProjectServiceService {
     );
   }
 
+  deleteProject(id) {
+    return this.httpClient.delete(
+      `http://localhost:8080/projects/delete/project/${id}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   saveProject(projectData: Project) {
     return this.httpClient.post(
       'http://localhost:8080/projects/save/project',

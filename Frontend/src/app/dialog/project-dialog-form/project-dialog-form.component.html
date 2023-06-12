@@ -11,7 +11,12 @@
 
   <mat-dialog-actions class="mat-card-actions">
     <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button type="submit" [disabled]="!projectForm.valid">
+    <button
+      mat-raised-button
+      mat-dialog-close
+      type="submit"
+      [disabled]="!projectForm.valid"
+    >
       Submit
     </button>
   </mat-dialog-actions>

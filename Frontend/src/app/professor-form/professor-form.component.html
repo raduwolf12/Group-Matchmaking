@@ -1,13 +1,63 @@
-<div class="professor-dashboard">
+<button
+  mat-icon-button
+  (click)="showCommandCenter = !showCommandCenter"
+  color="primary"
+  matTooltip="Show/Hide command center"
+  *ngIf="!finalGroupsExist"
+>
+  <mat-icon> lock </mat-icon>
+</button>
+<div
+  class="professor-dashboard"
+  *ngIf="!showCommandCenter && !finalGroupsExist"
+>
   <div class="left-side">
     <h1 class="center-header">PROJECTS</h1>
+    <form [formGroup]="myForm" class="form-container">
+      <mat-form-field appearance="outline">
+        <mat-label>Pair size</mat-label>
+        <input
+          type="number"
+          placeholder="Pair size"
+          aria-label="Pair size"
+          matInput
+          formControlName="pairSize"
+          min="1"
+        />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Group size</mat-label>
+        <input
+          type="number"
+          placeholder="Group size"
+          aria-label="Group size"
+          matInput
+          formControlName="groupSize"
+          min="1"
+        />
+      </mat-form-field>
+      <button
+        mat-raised-button
+        type="submit"
+        [disabled]="!myForm.valid"
+        (click)="saveSettings()"
+      >
+        Save
+      </button>
+    </form>
+    <button mat-icon-button matTooltip="Export projects" (click)="exportCSV()">
+      <mat-icon color="primary">download</mat-icon>
+    </button>
     <div class="project-list">
       <mat-card *ngFor="let project of projectList" class="project-card">
         <mat-card-title> {{ project.title }} </mat-card-title>
-        <!-- <mat-card-subtitle> varza si muratura</mat-card-subtitle> -->
         <mat-card-content> {{ project.description }}</mat-card-content>
         <mat-card-actions class="mat-card-actions">
-          <button mat-icon-button matTooltip="Delete project">
+          <button
+            mat-icon-button
+            matTooltip="Delete project"
+            (click)="deleteProject(project.projectId)"
+          >
             <mat-icon color="warn"> delete </mat-icon>
           </button>
           <button
@@ -31,23 +81,61 @@
         </button>
       </div>
     </div>
-    <button mat-icon-button matTooltip="Export projects">
-      <mat-icon color="primary">download</mat-icon>
-    </button>
   </div>
   <div class="student-list">
     <h1 class="center-header">Students</h1>
+    <input type="file" (change)="onFileSelected($event)" accept=".csv" />
+    <button mat-icon-button matTooltip="Import students" (click)="importCSV()">
+      <mat-icon color="primary">upload</mat-icon>
+    </button>
     <div>
-      <mat-card
-        *ngFor="let student of studentList$ | async"
-        class="student-card"
-      >
+      <mat-card *ngFor="let student of studentList" class="student-card">
         <mat-card-title> {{ student.name }} </mat-card-title>
         <!-- <mat-card-subtitle> {{item.name}}</mat-card-subtitle> -->
       </mat-card>
     </div>
-    <button mat-icon-button matTooltip="Import students">
-      <mat-icon color="primary">upload</mat-icon>
+  </div>
+</div>
+<div class="command-center" *ngIf="showCommandCenter && !finalGroupsExist">
+  <h1>COMMAND CENTER</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Form duration</mat-label>
+    <input
+      type="number"
+      placeholder="Form duration"
+      aria-label="Form duration"
+      matInput
+      min="0"
+      [(ngModel)]="formDuration"
+    />
+  </mat-form-field>
+  <div class="button-center">
+    <button
+      mat-raised-button
+      (click)="startForm()"
+      color="primary"
+      *ngIf="'Closed' == (formStatus$ | async)"
+    >
+      Grant form access
+    </button>
+    <button
+      mat-raised-button
+      (click)="endForm()"
+      color="primary"
+      *ngIf="'Open' == (formStatus$ | async)"
+    >
+      End form access
+    </button>
+    <button mat-raised-button (click)="startAlgorithm()" color="warn">
+      Start Algorithm
     </button>
   </div>
+</div>
+<div *ngIf="finalGroupsExist">
+  <mat-card *ngFor="let group of finalGroups" class="final-project-card">
+    <mat-card-title> {{ group.project.description }} </mat-card-title>
+    <mat-card-content *ngFor="let student of group.students">
+      <h3>{{ student.name }}</h3>
+    </mat-card-content>
+  </mat-card>
 </div>

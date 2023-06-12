@@ -32,7 +32,26 @@ export class StudentServiceService {
     );
   }
 
+  getProjectPreference(userId): Observable<any> {
+    return this.httpClient.get(
+      `http://localhost:8080/preferences/get/project/preference/${userId}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  getGroupPreference(userId) {
+    return this.httpClient.get(
+      `http://localhost:8080/preferences/get/group/preference/${userId}`,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
   saveProjectPreference(projectPreferences: ProjectPreference[]) {
+    console.log(projectPreferences);
     return this.httpClient.post(
       'http://localhost:8080/preferences/save/project/preference',
       projectPreferences,
@@ -46,6 +65,15 @@ export class StudentServiceService {
     return this.httpClient.post(
       'http://localhost:8080/preferences/save/group/preference',
       groupPreference,
+      {
+        headers: this.headers,
+      }
+    );
+  }
+
+  leaveParty(userId) {
+    return this.httpClient.put(
+      `http://localhost:8080/preferences/${userId}/leave`,
       {
         headers: this.headers,
       }

@@ -1,8 +1,43 @@
+.page-container {
+  display: block;
+  .bottom-btn {
+    margin-left: 20%;
+  }
+}
 .student-page {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: space-around;
-  align-items: center;
+  // align-items: center;
+  .student-list {
+    margin: 18px;
+    flex: 1 1 auto;
+    display: flex;
+    flex-flow: column wrap;
+    .input-form {
+      display: flex;
+      flex-direction: row;
+      align-self: center;
+    }
+    .student-card {
+      display: flex;
+      margin: 8px;
+      padding: 2px;
+      align-items: center;
+      background-color: rgba(230, 234, 220, 1);
+    }
+    .selected-student-card {
+      display: flex;
+      margin: 8px;
+      padding: 16px;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      background-color: rgba(230, 234, 220, 1);
+    }
+  }
+
   .student-form {
     display: flex;
     flex-direction: column;
@@ -21,6 +56,18 @@
   background: white;
   border-radius: 4px;
   overflow: hidden;
+}
+
+.example-list2 {
+  width: 500px;
+  max-width: 100%;
+  border: solid 1px #ccc;
+  min-height: 60px;
+  display: block;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 10px;
 }
 
 .rank-box {

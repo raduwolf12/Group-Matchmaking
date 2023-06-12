@@ -14,6 +14,7 @@ import { Project } from '../model/project-model';
 import { StudentServiceService } from '../services/student-service.service';
 import { ProjectServiceService } from '../services/project-service.service';
 import { SettingsServiceService } from '../services/settings-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-student-form',
@@ -33,8 +34,10 @@ export class StudentFormComponent implements OnInit, OnDestroy {
   myForm: FormGroup;
   filteredOptions: Observable<StudentModel[]>;
   selectedStudentList: StudentModel[] = [];
-  isUserGrouped: boolean = false;
+  isUserPaired: boolean = false;
   studentList: StudentModel[] = [];
+  groupedStudents: StudentModel[] = [];
+  projectPrefList: Project[] = [];
   private studentSub: Subscription;
   private projectSub: Subscription;
   private projecPrefSub: Subscription;
@@ -47,18 +50,29 @@ export class StudentFormComponent implements OnInit, OnDestroy {
     private dialog: MatDialog,
     private studentService: StudentServiceService,
     private projectService: ProjectServiceService,
-    private settingsService: SettingsServiceService
+    private settingsService: SettingsServiceService,
+    private router: Router
   ) {
     this.myForm = this.fb.group({
       student: [''],
     });
     this.sessionUserId = sessionStorage.getItem('userId');
+    const state = this.router.getCurrentNavigation()?.extras?.state;
+    console.log(state);
+
+    if (state && state['data']) {
+      const userData: StudentModel = state['data'];
+      this.isUserPaired = userData.isUserPaired ? userData.isUserPaired : false;
+    }
   }
 
   ngOnInit() {
     this.fetchStudents();
     this.fetchProjects();
     this.getPairSize();
+    if (this.isUserPaired) {
+      this.getPreferences();
+    }
   }
 
   ngOnDestroy() {
@@ -157,6 +171,37 @@ export class StudentFormComponent implements OnInit, OnDestroy {
       });
   }
 
+  getPreferences() {
+    console.log(this.sessionUserId);
+    this.studentService
+      .getGroupPreference(this.sessionUserId)
+      .subscribe((value) => {
+        for (let userId of value['mates']) {
+          let mate = this.studentList.find(
+            (student) => student.userId === userId
+          );
+          this.groupedStudents.push(mate);
+        }
+      });
+
+    this.studentService
+      .getProjectPreference(this.sessionUserId)
+      .subscribe((value) => {
+        for (let projectPref of value) {
+          let project = this.projectList.find(
+            (p) => p.projectId == projectPref.projectId
+          );
+          this.projectPrefList.push(project);
+        }
+      });
+  }
+
+  leaveParty() {
+    this.studentService
+      .leaveParty(this.sessionUserId)
+      .subscribe(() => (this.isUserPaired = false));
+  }
+
   savePreferences(): void {
     const projectPreferences: ProjectPreference[] = this.projectList.map(
       (project, index) => ({
@@ -180,6 +225,6 @@ export class StudentFormComponent implements OnInit, OnDestroy {
       .subscribe();
     this.groupPrefSub = this.studentService
       .saveGroupPreference(groupPreference)
-      .subscribe();
+      .subscribe(() => this.router.navigate(['login']));
   }
 }
