@@ -71,17 +71,21 @@ export class SettingsServiceService {
   }
 
   uploadFile(selectedFile) {
-    const formData = new FormData();
-    formData.append('csvFile', selectedFile);
+    const formData: FormData = new FormData();
+    formData.append('file', selectedFile);
+
     return this.httpClient.post(
       'http://localhost:8080/api/csv/upload',
-      formData
+      formData,
+      {
+        headers: this.headers,
+      }
     );
   }
 
   startAlgorithm(): Observable<any> {
-    return this.httpClient.post(`http://localhost:8080/admin/start`, {
-      headers: this.headers,
+    return this.httpClient.post(`http://localhost:8080/admin/start`, {}, {
+      headers: this.headers
     });
   }
 

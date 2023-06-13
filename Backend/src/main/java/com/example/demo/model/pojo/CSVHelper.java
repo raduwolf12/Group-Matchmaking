@@ -69,8 +69,9 @@ public class CSVHelper {
 				user.setEmail(csvRecord.get("login_id"));
 				user.setGroupId(null);
 				user.setRole(Role.STUDENT);
-				user.setPassword(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
-				user.setPasswordTemporary(PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH));
+				String password = PasswordGenerator.generateRandomPassword(PASSWORD_LENGTH);
+				user.setPassword(password);
+				user.setPasswordTemporary(password);
 				users.add(user);
 			}
 

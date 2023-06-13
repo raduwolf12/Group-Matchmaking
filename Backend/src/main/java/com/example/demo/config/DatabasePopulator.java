@@ -81,30 +81,30 @@ public class DatabasePopulator {
 		}
 
 		if (this.userRepository.count() == 0) {
-			List<User> users = new ArrayList<>();
-			for (int i = 1; i <= 16; i++) {
-				User user = new User();
-				user.setName("User " + i);
-				user.setEmail("user" + i + "@yahoo.com");
-				user.setPassword(encoder.encode("testpass"));
-				user.setPasswordTemporary("testpass");
-				user.setRole(Role.STUDENT);
-				userRepository.save(user);
-				users.add(user);
-			}
+//			List<User> users = new ArrayList<>();
+//			for (int i = 1; i <= 16; i++) {
+//				User user = new User();
+//				user.setName("User " + i);
+//				user.setEmail("user" + i + "@yahoo.com");
+//				user.setPassword(encoder.encode("testpass"));
+//				user.setPasswordTemporary("testpass");
+//				user.setRole(Role.STUDENT);
+//				userRepository.save(user);
+//				users.add(user);
+//			}
 			// Create and save projects
-			List<Project> projects = new ArrayList<>();
-			for (int i = 1; i <= 5; i++) {
-				Project project = new Project();
-				project.setTitle("Project " + i);
-				project.setDescription("Test project " + i + " description");
-				project.setOwner(users.get(i - 1));
-				project.setSize(8L);
-				project.setVisibility(true);
-				projectRepository.save(project);
-				projects.add(project);
-
-			}
+//			List<Project> projects = new ArrayList<>();
+//			for (int i = 1; i <= 5; i++) {
+//				Project project = new Project();
+//				project.setTitle("Project " + i);
+//				project.setDescription("Test project " + i + " description");
+//				project.setOwner(users.get(i - 1));
+//				project.setSize(8L);
+//				project.setVisibility(true);
+//				projectRepository.save(project);
+//				projects.add(project);
+//
+//			}
 
 			// Create and save pair preferences
 //			for (int i = 0; i < 5; i++) {
@@ -120,66 +120,66 @@ public class DatabasePopulator {
 //				pairPreferences.setUsers(pairList);
 //				pairPreferenceRepository.save(pairPreferences);
 //			}
-			List<Project> allProjects = projectRepository.findAll();
+//			List<Project> allProjects = projectRepository.findAll();
+//
+//			for (int i = 0; i < 5; i++) {
+//				User user1 = users.get(i);
+//				User user2 = users.get(i + 5);
+//				PairPreference pairPreferences = new PairPreference();
+//				pairPreferences.setGroupCreator(user1);
+//
+//				List<User> pairList = new ArrayList<User>();
+//				pairList.add(user1);
+//				pairList.add(user2);
+//
+//				pairPreferences.setUsers(pairList);
+//				pairPreferenceRepository.save(pairPreferences);
+//				int rank = 1;
+//				Collections.shuffle(allProjects);
+//				for (Project project : allProjects) {
+//					ProjectPreference preference1 = new ProjectPreference();
+//					preference1.setUser(user1);
+//					preference1.setProject(project);
+//					preference1.setRank(rank);
+//					projectPreferenceRepository.save(preference1);
+//
+//					rank++;
+//				}
+//			}
+//			for (int i = 11; i <= 15; i++) {
+//				User user1 = users.get(i);
+//				PairPreference pairPreferences = new PairPreference();
+//				pairPreferences.setGroupCreator(user1);
+//
+//				List<User> pairList = new ArrayList<User>();
+//				pairList.add(user1);
+//
+//				pairPreferences.setUsers(pairList);
+//				pairPreferenceRepository.save(pairPreferences);
+//				int rank = 1;
+//				Collections.shuffle(allProjects);
+//				for (Project project : allProjects) {
+//					ProjectPreference preference1 = new ProjectPreference();
+//					preference1.setUser(user1);
+//					preference1.setProject(project);
+//					preference1.setRank(rank);
+//					projectPreferenceRepository.save(preference1);
+//
+//					rank++;
+//				}
+//			}
 
-			for (int i = 0; i < 5; i++) {
-				User user1 = users.get(i);
-				User user2 = users.get(i + 5);
-				PairPreference pairPreferences = new PairPreference();
-				pairPreferences.setGroupCreator(user1);
-
-				List<User> pairList = new ArrayList<User>();
-				pairList.add(user1);
-				pairList.add(user2);
-
-				pairPreferences.setUsers(pairList);
-				pairPreferenceRepository.save(pairPreferences);
-				int rank = 1;
-				Collections.shuffle(allProjects);
-				for (Project project : allProjects) {
-					ProjectPreference preference1 = new ProjectPreference();
-					preference1.setUser(user1);
-					preference1.setProject(project);
-					preference1.setRank(rank);
-					projectPreferenceRepository.save(preference1);
-
-					rank++;
-				}
-			}
-			for (int i = 11; i <= 15; i++) {
-				User user1 = users.get(i);
-				PairPreference pairPreferences = new PairPreference();
-				pairPreferences.setGroupCreator(user1);
-
-				List<User> pairList = new ArrayList<User>();
-				pairList.add(user1);
-
-				pairPreferences.setUsers(pairList);
-				pairPreferenceRepository.save(pairPreferences);
-				int rank = 1;
-				Collections.shuffle(allProjects);
-				for (Project project : allProjects) {
-					ProjectPreference preference1 = new ProjectPreference();
-					preference1.setUser(user1);
-					preference1.setProject(project);
-					preference1.setRank(rank);
-					projectPreferenceRepository.save(preference1);
-
-					rank++;
-				}
-			}
-
-			User student = new User();
-			student.setName("whx");
-			student.setCanvasUserId(1L);
-			student.setGroupId(1L);
-			student.setEmail("whx862@alumni.ku.dk");
-			student.setPassword(encoder.encode("TESTUSERPASS"));
-			student.setPasswordTemporary("TESTUSERPASS");
+//			User student = new User();
+//			student.setName("whx");
+//			student.setCanvasUserId(1L);
+//			student.setGroupId(1L);
+//			student.setEmail("whx862@alumni.ku.dk");
+//			student.setPassword(encoder.encode("TESTUSERPASS"));
+//			student.setPasswordTemporary("TESTUSERPASS");
 
 //			student.setUserId(1L);
-			student.setRole(Role.STUDENT);
-			userRepository.save(student);
+//			student.setRole(Role.STUDENT);
+//			userRepository.save(student);
 
 			User teacher = new User();
 			teacher.setName("qwe");
@@ -203,23 +203,23 @@ public class DatabasePopulator {
 			professor.setPassword(encoder.encode("TESTUSERPASS"));
 			professor.setPasswordTemporary("TESTUSERPASS");
 
-			Project project = new Project();
-			project.setDescription("Test proj desc");
-			project.setOwner(professor);
-			project.setSize(8L);
-			project.setTitle("Test project");
-			project.setVisibility(true);
+//			Project project = new Project();
+//			project.setDescription("Test proj desc");
+//			project.setOwner(professor);
+//			project.setSize(8L);
+//			project.setTitle("Test project");
+//			project.setVisibility(true);
 
-			ProjectPreference preference = new ProjectPreference();
-			preference.setProject(project);
-			preference.setRank(1);
-			preference.setUser(student);
+//			ProjectPreference preference = new ProjectPreference();
+//			preference.setProject(project);
+//			preference.setRank(1);
+//			preference.setUser(student);
 
 			userRepository.save(teacher);
 			userRepository.save(professor);
 
-			projectRepository.save(project);
-			preferenceRepository.save(preference);
+//			projectRepository.save(project);
+//			preferenceRepository.save(preference);
 
 		}
 
