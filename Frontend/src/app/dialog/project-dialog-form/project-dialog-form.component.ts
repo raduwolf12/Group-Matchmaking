@@ -40,7 +40,7 @@ export class ProjectDialogFormComponent implements OnInit, OnDestroy {
     if (this.projectSub) {
       this.projectSub.unsubscribe();
     }
-    location.reload();
+    // location.reload();
   }
 
   onSubmit() {

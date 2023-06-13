@@ -69,7 +69,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
     if (this.selectedFile) {
       this.settingsService.uploadFile(this.selectedFile).subscribe();
     }
-    location.reload();
+    // location.reload();
   }
 
   exportCSV(): void {
@@ -122,7 +122,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       data: project,
       autoFocus: false,
     });
-    location.reload();
+    // location.reload();
   }
 
   deleteProject(id) {
@@ -145,7 +145,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
 
   saveSettings() {
     this.settingsService.saveSettings(this.myForm.value).subscribe();
-    location.reload();
+    // location.reload();
   }
 
   startForm() {
@@ -154,7 +154,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => (this.formStatus$ = this.settingsService.getFormStatus())
       );
-    location.reload();
+    // location.reload();
   }
   endForm() {
     this.settingsService
@@ -162,11 +162,11 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => (this.formStatus$ = this.settingsService.getFormStatus())
       );
-    location.reload();
+    // location.reload();
   }
   startAlgorithm() {
     this.settingsService.startAlgorithm().subscribe();
-    location.reload();
+    // location.reload();
   }
 
   getFinalGroups() {
