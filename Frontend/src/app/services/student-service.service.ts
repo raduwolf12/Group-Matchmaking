@@ -73,7 +73,7 @@ export class StudentServiceService {
 
   leaveParty(userId) {
     return this.httpClient.put(
-      `http://localhost:8080/preferences/${userId}/leave`,
+      `http://localhost:8080/preferences/${userId}/leave`, {},
       {
         headers: this.headers,
       }

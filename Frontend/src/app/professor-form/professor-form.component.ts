@@ -46,6 +46,8 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
     });
     this.sessionUserId = sessionStorage.getItem('userId');
     this.formStatus$ = settingsService.getFormStatus();
+    console.log(this.formStatus$)
+    // if(this.formStatus)
   }
 
   ngOnDestroy(): void {
@@ -67,6 +69,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
     if (this.selectedFile) {
       this.settingsService.uploadFile(this.selectedFile).subscribe();
     }
+    location.reload();
   }
 
   exportCSV(): void {
@@ -119,6 +122,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       data: project,
       autoFocus: false,
     });
+    location.reload();
   }
 
   deleteProject(id) {
@@ -141,6 +145,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
 
   saveSettings() {
     this.settingsService.saveSettings(this.myForm.value).subscribe();
+    location.reload();
   }
 
   startForm() {
@@ -149,6 +154,7 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => (this.formStatus$ = this.settingsService.getFormStatus())
       );
+    location.reload();
   }
   endForm() {
     this.settingsService
@@ -156,16 +162,18 @@ export class ProfessorFormComponent implements OnInit, OnDestroy {
       .subscribe(
         () => (this.formStatus$ = this.settingsService.getFormStatus())
       );
+    location.reload();
   }
   startAlgorithm() {
     this.settingsService.startAlgorithm().subscribe();
+    location.reload();
   }
 
   getFinalGroups() {
     let students;
     let project;
     this.settingsService.getFinalGroups().subscribe((value) => {
-      this.finalGroupsExist = !value;
+      this.finalGroupsExist = value;
       console.log(this.finalGroupsExist);
       for (let item of value) {
         students = this.studentList.filter((student) =>

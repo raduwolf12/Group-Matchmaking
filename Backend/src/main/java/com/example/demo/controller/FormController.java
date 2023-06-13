@@ -101,7 +101,7 @@ public class FormController {
 		}
 		catch (Exception e) {
 			return new ResponseEntity<>("No open form!",
-					HttpStatus.INTERNAL_SERVER_ERROR);
+					HttpStatus.ACCEPTED);
 		}
 	}
 

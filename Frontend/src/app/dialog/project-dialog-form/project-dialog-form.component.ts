@@ -34,12 +34,13 @@ export class ProjectDialogFormComponent implements OnInit, OnDestroy {
     }
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     if (this.projectSub) {
       this.projectSub.unsubscribe();
     }
+    location.reload();
   }
 
   onSubmit() {

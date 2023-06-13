@@ -60,6 +60,11 @@ public class AdminServiceImpl implements AdminService {
 	/** The final group repository. */
 	@Autowired
 	FinalGroupRepository finalGroupRepository;
+	
+	private boolean isPairs;
+	
+	private boolean isSolos;
+	
 
 	/**
 	 * Form groups.
@@ -102,6 +107,12 @@ public class AdminServiceImpl implements AdminService {
 
 		List<FinalGroup> groups = createEmptyGroups(projects, groupSize, pairSize);
 		List<User> pairedUsersOwnersList = new ArrayList<User>(pairedUsersOwners);
+		if(pairedUsersOwnersList.size()>0) {
+			isPairs=true;
+		}
+		if(unpairedUsers.size()>0) {
+			isSolos=true;
+		}
 
 		assignProjectsToPairedUsers(pairedUsersOwnersList, projects, groups);
 
@@ -266,9 +277,16 @@ public class AdminServiceImpl implements AdminService {
 
 			Set<User> members = group.getMembers();
 			if (members == null || members.isEmpty()) {
-				groupIndex++;
-				break;
+				if (isPairs == false || isSolos == false) {
+					members = new HashSet<User>();
+				} else {
+					groupIndex++;
+					break;
+				}
 			}
+			
+			
+			
 			members.add(user);
 			group.setMembers(members);
 			userIndex++;
