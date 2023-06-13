@@ -28,7 +28,8 @@ c)PostgreSQL Database:
 	During the installation, take note of the hostname, port, database name, username, and password used for the PostgreSQL installation.
 	Note: For this project the port is 5432, the username and password are postgres, and the database name is matchmaking
 2) How to run the application:
-Before starting the application, it is necessary to create the database called "matchmaking". It is also necessary that the port on which postgres runs is 5432 and the password and user are postgres. Otherwise, the backend will not work and therefore the frontend will not work either.
+Before starting the application, it is necessary to create the database called "matchmaking". It is also necessary that the port on which postgres runs is 5432 and the password and user are postgres. 
+Otherwise, the backend will not work and therefore the frontend will not work either.
 
 Before starting the application, it is necessary to do the following command in cmd "npm install -g http-server"
 
@@ -41,3 +42,29 @@ If the user wants to manually start the backend and the frontend from cmd, then 
 	Note: You can use the "path to jdk\bin\java" -jar backend.jar as a command if you don't want to set JAVA_HOME
 	To start the frontend, the user must open a cmd in the directory with the application and enter the following command: 
 		http-server ./frontend -p 4200
+
+
+## Usage
+
+1. Run the application:
+   - Open a command prompt or terminal.
+   - Navigate to the main folder (the one containing "frontend" and "backend" directories).
+   - Run the following command to start the frontend and backend servers:
+
+     start cmd /k "cd frontend && http-server ./dist -p 4200"
+     start cmd /k "cd backend/target && java -jar demo-0.0.1-SNAPSHOT.jar"
+
+
+2. Access the application:
+   - Open a web browser.
+   - Enter the following URL: http://localhost:4200
+   - You should now see the Angular frontend of the application.
+
+### Existing users
+Within the application there is a component that automatically adds users. 
+One of the users is the Professor who has the following credentials:
+Email: abc@alumni.ku.dk
+Password: TESTUSERPASS
+One of the users is the Teacher who has the credentials
+Email: qwe@alumni.ku.dk
+Password: TESTUSERPASS

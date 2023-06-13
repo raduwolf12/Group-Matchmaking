@@ -3,6 +3,7 @@
 - Node.js and Angular CLI
 - Java Development Kit (JDK)
 - PostgreSQL database
+- Docker(Optional)
 
 ## Installation
 
@@ -40,6 +41,41 @@
      spring.datasource.username=username
      spring.datasource.password=password
 
+6. Docker(Optional):
+   - The alternative to run the application, there is also the docker version. 
+   - To be able to run the application in docker, you need to install docker: https://www.docker.com/
+   - To run the application, open a cmd in the folder where the "docker-compose.yml" file is located and use the command:
+	
+     docker compose up
+
+!Note: 
+	To be able to use docker, some changes are also needed in the application.properties in the backend.
+	These lines should be uncommented:
+		#spring.datasource.url=jdbc:postgresql://localhost:5432/compose-postgres
+		#spring.datasource.username=compose-postgres
+		#spring.datasource.password=compose-postgres
+		#spring.datasource.driver-class-name=org.postgresql.Driver
+		#spring.jpa.properties.hibernate.dialect =org.hibernate.dialect.PostgreSQLDialect
+	And also a new jar needs to be created (using the "mvnw clean package -DskipTests" command), which should be moved from the target folder in the backend to the backend 
+	folder to be at the same level as the file called Dockerfile
+	1. Build the ressources :
+
+	```bash
+	# Build the frontend
+	cd Frontend
+	npm install
+	node_modules/@angular/cli/bin/ng.js build
+	# Build the backend
+	cd ../Backend
+	./mvnw clean package -DskipTests
+	```
+
+	2. Run the docker compose :
+
+	```bash
+	cd ..   # If you are still in the Backend folder
+	docker compose up --build # add -d if you want to run it in background
+	```
 
 ## Usage
 
@@ -56,3 +92,12 @@
    - Open a web browser.
    - Enter the following URL: http://localhost:4200
    - You should now see the Angular frontend of the application.
+
+### Existing users
+Within the application there is a component that automatically adds users. 
+One of the users is the Professor who has the following credentials:
+Email: abc@alumni.ku.dk
+Password: TESTUSERPASS
+One of the users is the Teacher who has the credentials
+Email: qwe@alumni.ku.dk
+Password: TESTUSERPASS
