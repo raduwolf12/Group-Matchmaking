@@ -39,20 +39,26 @@ Node.js and Angular CLI:
 	During the installation, take note of the hostname, port, database name, username, and password used for the PostgreSQL installation.
 	Note: For this project the port is 5432, the username and password are postgres, and the database name is matchmaking
 ### How to run the application:
-Before starting the application, it is necessary to create the database called "matchmaking". It is also necessary that the port on which postgres runs is 5432 and the password and user are postgres. 
+
+Before starting the application, it is necessary to create the database called "matchmaking". 
+It is also necessary that the port on which postgres runs is 5432 and the password and user are postgres. 
 Otherwise, the backend will not work and therefore the frontend will not work either.
 
-Before starting the application, it is necessary to do the following command in cmd "npm install -g http-server"
+Before starting the application, it is necessary to do the following command in cmd:
 
-For the convenience of the user, an executable file has been created that will start your backend and frontend directly. The executable file is "start.cmd"
-Also in the application folder there are two bat executable files, called Frontend and Backend, which start the frontend and the backend, respectively.
+	npm install -g http-server
+
+For the convenience of the user, an executable file has been created that will start your backend and frontend directly. 
+The executable file is "start.cmd". Also in the application folder there are two bat executable files, called Frontend and Backend, which start the frontend and the backend, respectively.
 
 If the user wants to manually start the backend and the frontend from cmd, then he must follow the following steps:
-	To start the backend, the user must open a cmd in the directory with the application and put the following command: 
-		java -jar backend.jar
-	Note: You can use the "path to jdk\bin\java" -jar backend.jar as a command if you don't want to set JAVA_HOME
-	To start the frontend, the user must open a cmd in the directory with the application and enter the following command: 
-		http-server ./frontend -p 4200
+	To start the backend, the user must open a cmd in the directory with the application and put the following command:
+	
+	java -jar backend.jar
+Note: You can use the "path to jdk\bin\java" -jar backend.jar as a command if you don't want to set JAVA_HOME 
+To start the frontend, the user must open a cmd in the directory with the application and enter the following command: 
+			
+	http-server ./frontend -p 4200
 
 ## Compilation
 
