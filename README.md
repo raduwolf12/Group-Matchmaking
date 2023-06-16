@@ -3,9 +3,9 @@ This application was designed and build for "Software Engineering and Architectu
 
 ## <a name="team-members"></a>Team Members
 * Taraburca Radu - <rtaraburca@yahoo.com> / <whx862@alumni.ku.dk>
-* Mihai Razvan Costescu - <wrl572@alumni.ku.dk
-* Thomas Jackson Terry- <pdh248@alumni.ku.dk
-* Matthieu Massardier- <cxs929@alumni.ku.dk
+* Mihai Razvan Costescu - <wrl572@alumni.ku.dk>
+* Thomas Jackson Terry- <pdh248@alumni.ku.dk>
+* Matthieu Massardier- <cxs929@alumni.ku.dk>
 ## Requirements:
 
 - Node.js and Angular CLI installed.
